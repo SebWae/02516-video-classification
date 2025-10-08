@@ -5,10 +5,9 @@ The classification task at hand is to classify videos of training exercises. The
 
 We are considering the following models:
 - Single-Frame CNN
-- Late Fusion 2D
-- Late Fusion 3D
-- Early Fusion 2D
-- Early Fusion 3D
+- Late Fusion
+- Early Fusion
+- 3D CNN
 
 Additional experiments:
 - Information leakage between train/val/test splits
