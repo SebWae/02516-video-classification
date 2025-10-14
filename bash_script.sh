@@ -17,5 +17,5 @@
 #BSUB -o OUTPUT_FILE%J.out
 #BSUB -e OUTPUT_FILE%J.err
 
-source venv_1/bin/activate
+source venv_proj2/bin/activate
 python test_script.py
