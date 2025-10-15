@@ -10,7 +10,7 @@ Then parse in the following command:
 ```
 `ssh s123456@login1.hpc.dtu.dk`
 ```
-and replace `123456` with your student ID. You will then be asked to type in your DTU password. After this has been done once, the extension will save the access point and it will show up as a suggestion.  
+and replace `123456` with your student ID. Choose Linux as the operating system. You will then be asked to type in your DTU password. After this has been done once, the extension will save the access point and it will show up as a suggestion.  
 
 ## Move Local Files to HPC
 To move a file from your local machine to the HPC, use the following command from a new terminal in which you are not logged on to the HPC but can access your local files:
@@ -89,7 +89,8 @@ Run the command `bstat` to check the status of your submitted job.
 
 If a memory error occurs, it might help to use one of the larger compute nodes:
 - `c02516_2g.20gb`
-- `c02516_4g.40gb`
+- `c02516_4g.40gb`  
+
 Just replace the name of the compute node in the command for submitting a batch job above. 
 
 ## Documentation
