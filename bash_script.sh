@@ -12,7 +12,7 @@
 #BSUB -R "rusage[mem=20GB]"
 
 ### ------------- specify wall-clock time (max allowed is 12:00)---------------- 
-#BSUB -W 00:10
+#BSUB -W 03:00
 
 #BSUB -o OUTPUT_FILE%J.out
 #BSUB -e OUTPUT_FILE%J.err
