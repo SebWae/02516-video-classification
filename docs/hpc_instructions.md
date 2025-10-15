@@ -24,7 +24,7 @@ Remember that it is possible to open any folder on the HPC in VS Code through th
 ## Virtual Environment
 Select the Python version you want, and load the corresponding module. If you use versions older than 3.6, the instructions to create the virtual environment may differ.
 ```
-module load python3/3.10.13
+module load python3/3.11
 ``` 
 
 Then create a virtual environment. In the example below, the name of the environment is `venv_1`: 
