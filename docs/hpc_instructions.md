@@ -29,12 +29,12 @@ module load python3/3.10.13
 
 Then create a virtual environment. In the example below, the name of the environment is `venv_1`: 
 ```
-python3 -m venv venv_1
+python3 -m venv venv_proj2
 ```
 
 Activate the environment with the command:
 ```
-source venv_1/bin/activate
+source venv_proj2/bin/activate
 ```
 
 When the environment is active the shell notes this to the left of the cursor (`<venv_name>`). 
