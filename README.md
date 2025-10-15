@@ -15,4 +15,14 @@ Additional experiments:
 
 Each experiment is run using the [DTU HPC](https://www.hpc.dtu.dk/). 
 
+To setup the virtual environment used when submitting a batch job, follow the instructions in [HPC Instructions](https://github.com/SebWae/02516-video-classification/blob/main/docs/hpc_instructions.md). Once the virtual environment (`venv_proj2`) has been created, install the required packages specified in `requirements.txt` by running: 
+```
+pip install -r requirements.txt
+```
+If more packages/libraries are needed, install these using `pip` and then update `requirements.txt` by running: 
+```
+pip freeze > requirements.txt
+```
+Remember to commit and push the changes 😊 
+
 📅 Hand-in: October 26th, 2025
