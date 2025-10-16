@@ -4,7 +4,7 @@
 ### ------------- specify gpu request----------------
 #BSUB -gpu "num=1:mode=exclusive_process"
 ### ------------- specify job name ----------------
-#BSUB -J first_single_frame_run
+#BSUB -J single_frame_cnn
 ### ------------- specify number of cores ----------------
 #BSUB -n 4
 #BSUB -R "span[hosts=1]"
