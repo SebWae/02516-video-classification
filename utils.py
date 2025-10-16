@@ -1,7 +1,6 @@
 import numpy as np
 import torch
 import torch.nn as nn
-from tqdm import tqdm
 
 
 def train_single_frame(model, train_loader, val_loader, device, optimizer, scheduler, num_epochs=10, patience=5):
@@ -13,12 +12,12 @@ def train_single_frame(model, train_loader, val_loader, device, optimizer, sched
                 'n_epochs': 0}
     prev_val_loss = 1e10
   
-    for epoch in tqdm(range(num_epochs), unit='epoch'):
+    for epoch in range(num_epochs):
         model.train()
         #For each epoch
         train_correct = 0
         train_loss = []
-        for _, (data, target) in tqdm(enumerate(train_loader), total=len(train_loader)):
+        for _, (data, target) in enumerate(train_loader):
             data, target = data.to(device), target.to(device)
             #Zero the gradients computed for each weight
             optimizer.zero_grad()
