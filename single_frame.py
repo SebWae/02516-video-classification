@@ -10,6 +10,22 @@ import utils
 img_size = 128
 batch_size = 10
 
+# optimizer settings
+lr = 0.0001
+weight_decay = 1e-4
+factor = 0.5
+patience = 2
+n_epochs = 20
+opt_settings = {"lr": lr, 
+                "weight_decay": weight_decay, 
+                "factor": factor, 
+                "patience": patience, 
+                "n_epochs": n_epochs}
+
+# printing the training/optimizer settings
+for param, val in opt_settings.items():
+    print(f"{param}: {val}")
+
 # transformations
 transform = T.Compose([T.Resize((img_size, img_size)),T.ToTensor()])
 
@@ -64,11 +80,11 @@ model = Network()
 model.to(device)
 
 # initializing Adam optimizer
-optimizer = torch.optim.Adam(model.parameters(), lr=0.001, weight_decay=5e-4)
+optimizer = torch.optim.Adam(model.parameters(), lr=lr, weight_decay=weight_decay)
 
 # initializing learning rate scheduler
 scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(
-    optimizer, mode='min', factor=0.5, patience=2
+    optimizer, mode='min', factor=factor, patience=patience
 )
 
 # training the single frame CNN
@@ -78,13 +94,15 @@ out_dict = utils.train_single_frame(model=model,
                                     device=device, 
                                     optimizer=optimizer, 
                                     scheduler=scheduler, 
-                                    num_epochs=20)
-print(out_dict)
+                                    num_epochs=n_epochs)
+print(f"Evaluation metrics from training phase: {out_dict}")
 
 # loading the saved model
-model_trained = model.load_state_dict(torch.load('best_model.pt'))
+model.load_state_dict(torch.load('best_model.pt'))
+model.to(device)
 
 # evaluating on the test set
-utils.eval(device=device, model=model_trained, dataloader=test_loader)
+eval_results = utils.eval(device=device, model=model, dataloader=test_loader)
+print(f"Evaluation metrics on the test set: {eval_results}")
 
 
