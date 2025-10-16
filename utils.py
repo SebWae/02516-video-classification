@@ -68,9 +68,12 @@ def train_single_frame(model, train_loader, val_loader, device, optimizer, sched
         if val_loss > prev_val_loss and epoch + 1 > patience:
             print(f"Current validation loss ({val_loss}) is larger than for the previous epoch ({prev_val_loss})!")
             print("Early stopping applies!")
-            print("Saving model")
-            torch.save(model.state_dict(), 'best_model.pt')
             break
+        
+        # save current model
+        else:
+            print(f"Validation loss improved from {prev_val_loss:.4f} to {val_loss:.4f}. Saving model...")
+            torch.save(model.state_dict(), 'best_model.pt')
 
         # setting the prev_val_loss to the current val_loss
         prev_val_loss = val_loss
@@ -80,7 +83,7 @@ def train_single_frame(model, train_loader, val_loader, device, optimizer, sched
 
 def eval(device, model, dataloader):
     criterion = nn.CrossEntropyLoss(label_smoothing=0.1)
-    #Compute the val accuracy
+    #Compute the test accuracy
     test_losses = []
     test_correct = 0
     model.eval()
