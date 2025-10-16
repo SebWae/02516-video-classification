@@ -11,8 +11,8 @@ img_size = 128
 batch_size = 10
 
 # optimizer settings
-lr = 0.0001
-weight_decay = 1e-4
+lr = 1e-5
+weight_decay = 5e-4
 factor = 0.5
 patience = 2
 n_epochs = 20
