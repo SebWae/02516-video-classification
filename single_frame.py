@@ -6,6 +6,9 @@ from torchvision import transforms as T
 from datasets import FrameImageDataset
 import utils
 
+# setting seed
+utils.set_seed(261025)
+
 # size settings
 img_size = 128
 batch_size = 10
@@ -15,7 +18,7 @@ lr = 1e-5
 weight_decay = 5e-4
 factor = 0.5
 patience = 2
-n_epochs = 20
+n_epochs = 100
 opt_settings = {"lr": lr, 
                 "weight_decay": weight_decay, 
                 "factor": factor, 
@@ -28,6 +31,15 @@ for param, val in opt_settings.items():
 
 # transformations
 transform = T.Compose([T.Resize((img_size, img_size)),T.ToTensor()])
+# transform = T.Compose([
+#     T.Resize((img_size, img_size)),
+#     T.RandomHorizontalFlip(),
+#     T.ColorJitter(brightness=0.3, contrast=0.3, saturation=0.3),
+#     T.RandomRotation(15),
+#     T.ToTensor(),
+#     T.Normalize(mean=[0.485, 0.456, 0.406],
+#                 std=[0.229, 0.224, 0.225])
+# ])
 
 # loading the train set
 trainset = FrameImageDataset(split='train', transform=transform)
