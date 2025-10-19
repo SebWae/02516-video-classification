@@ -15,16 +15,14 @@ batch_size = 10
 
 # optimizer settings
 lr = 5e-6
-weight_decay = 5e-4
+weight_decay = 1e-4
 factor = 0.3
 patience = 5
-dropout_rate = 0.5
 n_epochs = 500
 opt_settings = {"lr": lr, 
                 "weight_decay": weight_decay, 
                 "factor": factor, 
                 "patience": patience, 
-                "dropout_rate": dropout_rate,
                 "n_epochs": n_epochs}
 
 # printing the training/optimizer settings
@@ -32,16 +30,16 @@ for param, val in opt_settings.items():
     print(f"{param}: {val}")
 
 # transformations
-transform = T.Compose([T.Resize((img_size, img_size)),T.ToTensor()])
-# transform = T.Compose([
-#     T.Resize((img_size, img_size)),
-#     T.RandomHorizontalFlip(),
-#     T.ColorJitter(brightness=0.3, contrast=0.3, saturation=0.3),
-#     T.RandomRotation(15),
-#     T.ToTensor(),
-#     T.Normalize(mean=[0.485, 0.456, 0.406],
-#                 std=[0.229, 0.224, 0.225])
-# ])
+# transform = T.Compose([T.Resize((img_size, img_size)),T.ToTensor()])
+transform = T.Compose([
+    T.Resize((img_size, img_size)),
+    T.RandomHorizontalFlip(p=0.5),
+    # T.ColorJitter(brightness=0.2, contrast=0.2),
+    T.ToTensor(),
+    T.Normalize(mean=[0.485, 0.456, 0.406],
+                std=[0.229, 0.224, 0.225])
+])
+# consider removing ColorJitter
 
 # loading the train set
 trainset = FrameImageDataset(split='train', transform=transform)
@@ -72,7 +70,6 @@ class Network(nn.Module):
         self.fc = nn.Sequential(
             nn.Linear(64*4*4, 128),
             nn.ReLU(),
-            nn.Dropout(p=dropout_rate),
             nn.Linear(128, 10),
             )
 
