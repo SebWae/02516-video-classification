@@ -14,15 +14,17 @@ img_size = 128
 batch_size = 10
 
 # optimizer settings
-lr = 1e-5
+lr = 5e-6
 weight_decay = 5e-4
-factor = 0.5
-patience = 2
-n_epochs = 100
+factor = 0.3
+patience = 5
+dropout_rate = 0.5
+n_epochs = 500
 opt_settings = {"lr": lr, 
                 "weight_decay": weight_decay, 
                 "factor": factor, 
                 "patience": patience, 
+                "dropout_rate": dropout_rate,
                 "n_epochs": n_epochs}
 
 # printing the training/optimizer settings
@@ -70,6 +72,7 @@ class Network(nn.Module):
         self.fc = nn.Sequential(
             nn.Linear(64*4*4, 128),
             nn.ReLU(),
+            nn.Dropout(p=dropout_rate),
             nn.Linear(128, 10),
             )
 
