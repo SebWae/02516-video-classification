@@ -1,0 +1,103 @@
+Number of classes: 10
+Epoch [1/10]
+Train Loss: 2.3042 | Train Acc: 0.1160
+Val Loss:   2.2407 | Val Acc:   0.1417
+Epoch [2/10]
+Train Loss: 2.1335 | Train Acc: 0.2140
+Val Loss:   2.1883 | Val Acc:   0.1750
+Epoch [3/10]
+Train Loss: 1.9033 | Train Acc: 0.3520
+Val Loss:   2.1410 | Val Acc:   0.2500
+Epoch [4/10]
+Train Loss: 1.6176 | Train Acc: 0.4680
+Val Loss:   1.7723 | Val Acc:   0.4667
+Epoch [5/10]
+Train Loss: 1.2520 | Train Acc: 0.5980
+Val Loss:   1.4638 | Val Acc:   0.5083
+Epoch [6/10]
+Train Loss: 0.8381 | Train Acc: 0.7420
+Val Loss:   1.2614 | Val Acc:   0.6250
+Epoch [7/10]
+Train Loss: 0.6051 | Train Acc: 0.8140
+Val Loss:   1.0116 | Val Acc:   0.6833
+Epoch [8/10]
+Train Loss: 0.3848 | Train Acc: 0.8920
+Val Loss:   0.8837 | Val Acc:   0.7500
+Epoch [9/10]
+Train Loss: 0.2239 | Train Acc: 0.9380
+Val Loss:   0.8822 | Val Acc:   0.8000
+Epoch [10/10]
+Train Loss: 0.1919 | Train Acc: 0.9500
+Val Loss:   0.7687 | Val Acc:   0.8333
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@hpc.dtu.dk>
+Subject: Job 26496985: <testjob> in cluster <dcc> Exited
+
+Job <testjob> was submitted from host <n-62-27-23> by user <s252731> in cluster <dcc> at Wed Oct 15 14:59:26 2025
+Job was executed on host(s) <4*n-62-18-13>, in queue <c02516>, as user <s252731> in cluster <dcc> at Wed Oct 15 14:59:26 2025
+</zhome/1b/0/222796> was used as the home directory.
+</zhome/1b/0/222796/02516-video-classification> was used as the working directory.
+Started at Wed Oct 15 14:59:26 2025
+Terminated at Wed Oct 15 15:00:35 2025
+Results reported at Wed Oct 15 15:00:35 2025
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#!/bin/sh
+### ------------- specify queue name ----------------
+#BSUB -q c02516
+### ------------- specify gpu request----------------
+#BSUB -gpu "num=1:mode=exclusive_process"
+### ------------- specify job name ----------------
+#BSUB -J testjob
+### ------------- specify number of cores ----------------
+#BSUB -n 4
+#BSUB -R "span[hosts=1]"
+
+#BSUB -R "rusage[mem=20GB]"
+
+### ------------- specify wall-clock time (max allowed is 12:00)---------------- 
+#BSUB -W 00:10
+# Create folder
+mkdir -p result
+
+#BSUB -o result/earlyFusion%J.out
+#BSUB -e result/earlyFusion%J.err
+
+source venv_proj2/bin/activate
+python early_fusion.py
+
+timestamp=$(date +%Y%m%d-%H%M%S)
+mv result/earlyFusion.out result/earlyFusion_${timestamp}.out
+mv result/earlyFusion.err result/earlyFusion_${timestamp}.err
+del result/earlyFusion.out
+del result/earlyFusion.out
+
+------------------------------------------------------------
+
+Exited with exit code 127.
+
+Resource usage summary:
+
+    CPU time :                                   62.17 sec.
+    Max Memory :                                 831 MB
+    Average Memory :                             831.00 MB
+    Total Requested Memory :                     81920.00 MB
+    Delta Memory :                               81089.00 MB
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                8
+    Run time :                                   110 sec.
+    Turnaround time :                            69 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file <result/earlyFusion26496985.err> for stderr output of this job.
+
