@@ -3,24 +3,27 @@ import torch.nn as nn
 from torch.utils.data import DataLoader
 from torchvision import transforms as T
 
-from datasets import FrameImageDataset
+from datasets_dual_stream import FrameImageDataset, OpticalFlowDataset, DualStreamDataset
 import utils
 
 # setting seed
 utils.set_seed(261025)
 
-# size settings
-img_size = 128
+# global settings
+root_dir = '/dtu/datasets1/02516/ucf101_noleakage'
+img_size = 412
 batch_size = 10
 
 # optimizer settings
+window_size = 2
 lr = 5e-6
 weight_decay = 1e-4
 factor = 0.3
 patience = 5
 dropout_rate = 0.5
-n_epochs = 500
-opt_settings = {"lr": lr, 
+n_epochs = 1
+opt_settings = {"window_size": window_size,
+                "lr": lr, 
                 "weight_decay": weight_decay, 
                 "factor": factor, 
                 "patience": patience, 
@@ -32,40 +35,57 @@ for param, val in opt_settings.items():
     print(f"{param}: {val}")
 
 # transformations
-# transform = T.Compose([T.Resize((img_size, img_size)),T.ToTensor()])
-transform = T.Compose([
-    T.Resize((img_size, img_size)),
-    T.RandomHorizontalFlip(p=0.5),
-    # T.ColorJitter(brightness=0.2, contrast=0.2),
-    T.ToTensor(),
-    T.Normalize(mean=[0.485, 0.456, 0.406],
-                std=[0.229, 0.224, 0.225])
-])
+transform = T.Compose([T.Resize((img_size, img_size)),T.ToTensor()])
+# transform = T.Compose([
+#     T.Resize((img_size, img_size)),
+#     T.RandomHorizontalFlip(p=0.5),
+#     # T.ColorJitter(brightness=0.2, contrast=0.2),
+#     T.ToTensor(),
+#     T.Normalize(mean=[0.485, 0.456, 0.406],
+#                 std=[0.229, 0.224, 0.225])
+# ])
 # consider removing ColorJitter
 
 # loading the train set
-trainset = FrameImageDataset(root_dir='/dtu/datasets1/02516/ufc101_noleakage', split='train', transform=transform)
-train_loader = DataLoader(trainset,  batch_size=batch_size, shuffle=False)
+train_frames = FrameImageDataset(root_dir=root_dir, split='train', transform=transform)
+train_flows = OpticalFlowDataset(root_dir=root_dir, split='train', transform=transform)
+train_dual_stream = DualStreamDataset(frame_dataset=train_frames, flow_dataset=train_flows, window_size=window_size)
+train_loader = DataLoader(train_dual_stream,  batch_size=batch_size, shuffle=False)
 
 # loading the validation test
-valset = FrameImageDataset(root_dir='/dtu/datasets1/02516/ufc101_noleakage', split='val', transform=transform)
-val_loader = DataLoader(valset,  batch_size=batch_size, shuffle=False)
+val_frames = FrameImageDataset(root_dir=root_dir, split='val', transform=transform)
+val_flows = OpticalFlowDataset(root_dir=root_dir, split='val', transform=transform)
+val_dual_stream = DualStreamDataset(frame_dataset=val_frames, flow_dataset=val_flows, window_size=window_size)
+val_loader = DataLoader(val_dual_stream,  batch_size=batch_size, shuffle=False)
 
 # loading the test set
-testset = FrameImageDataset(root_dir='/dtu/datasets1/02516/ufc101_noleakage', split='test', transform=transform)
-test_loader = DataLoader(testset,  batch_size=batch_size, shuffle=False)
+test_frames = FrameImageDataset(root_dir=root_dir, split='test', transform=transform)
+test_flows = OpticalFlowDataset(root_dir=root_dir, split='test', transform=transform)
+test_dual_stream = DualStreamDataset(frame_dataset=test_frames, flow_dataset=test_flows, window_size=window_size)
+test_loader = DataLoader(test_dual_stream,  batch_size=batch_size, shuffle=False)
 
-# 2D CNN
-class Network(nn.Module):
-    def __init__(self):
-        super(Network, self).__init__()
-        self.conv = nn.Sequential(
-            # conv1
-            nn.Conv2d(3, 96, kernel_size=7, stride=2, padding=1),       
+# dual-stream network
+class DualStreamNetwork(nn.Module):
+    def __init__(self, dropout_rate=0.5, num_classes=10):
+        super(DualStreamNetwork, self).__init__()
+        
+        self.conv_frame = nn.Sequential(
+            # conv1 for frame data
+            nn.Conv2d(3, 96, kernel_size=7, stride=2, padding=1),
             nn.ReLU(inplace=True),
             nn.LocalResponseNorm(size=5),
             nn.MaxPool2d(kernel_size=2, stride=2),
+        )
 
+        self.conv_flow = nn.Sequential(
+            # conv1 for frame data
+            nn.Conv2d(window_size*2*3, 96, kernel_size=7, stride=2, padding=1),
+            nn.ReLU(inplace=True),
+            nn.LocalResponseNorm(size=5),
+            nn.MaxPool2d(kernel_size=2, stride=2),
+        )
+
+        self.shared_conv = nn.Sequential(
             # conv2
             nn.Conv2d(96, 256, kernel_size=5, stride=2, padding=1), 
             nn.ReLU(inplace=True),
@@ -88,7 +108,7 @@ class Network(nn.Module):
         
         self.fc = nn.Sequential(
             # full6
-            nn.Linear(512*4*4, 4096),
+            nn.Linear(512*12*12, 4096),
             nn.ReLU(inplace=True),
             nn.Dropout(p=dropout_rate),
 
@@ -98,14 +118,23 @@ class Network(nn.Module):
             nn.Dropout(p=dropout_rate),
 
             # final output (10 classes)
-            nn.Linear(2048, 10)
+            nn.Linear(2048, num_classes)
             )
 
-    def forward(self, x):
-        x = self.conv(x)
+    def forward_conv(self, x, conv_type='frame'):
+        if conv_type == 'frame':
+            x = self.conv_frame(x)
+        else:
+            x = self.conv_flow(x)
+        x = self.shared_conv(x)
+        return x
+
+    def forward(self, x, conv_type='frame'):
+        x = self.forward_conv(x, conv_type)
         x = x.view(x.size(0), -1)
         x = self.fc(x)
         return x
+
 
 if torch.cuda.is_available():
     print("The code will run on GPU.")
@@ -113,10 +142,8 @@ else:
     print("The code will run on CPU. Go to Edit->Notebook Settings and choose GPU as the hardware accelerator")
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
-
-
 # initializing the model (2D CNN)
-model = Network()
+model = DualStreamNetwork()
 model.to(device)
 
 # initializing Adam optimizer
@@ -128,13 +155,13 @@ scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(
 )
 
 # training the single frame CNN
-out_dict = utils.train_single_frame(model=model, 
-                                    train_loader=train_loader, 
-                                    val_loader=val_loader, 
-                                    device=device, 
-                                    optimizer=optimizer, 
-                                    scheduler=scheduler, 
-                                    num_epochs=n_epochs)
+out_dict = utils.train_dual_stream(model=model, 
+                                   train_loader=train_loader, 
+                                   val_loader=val_loader, 
+                                   device=device, 
+                                   optimizer=optimizer, 
+                                   scheduler=scheduler, 
+                                   num_epochs=n_epochs)
 print(f"Evaluation metrics from training phase: {out_dict}")
 
 # loading the saved model
@@ -142,6 +169,6 @@ model.load_state_dict(torch.load('best_model.pt'))
 model.to(device)
 
 # evaluating on the test set
-eval_results = utils.eval(device=device, model=model, dataloader=test_loader)
+eval_results = utils.eval_dual_stream(device=device, model=model, dataloader=test_loader)
 print(f"Evaluation metrics on the test set: {eval_results}")
 
