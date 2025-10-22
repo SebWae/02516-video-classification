@@ -21,7 +21,7 @@ weight_decay = 1e-4
 factor = 0.3
 patience = 5
 dropout_rate = 0.5
-n_epochs = 1
+n_epochs = 500 
 opt_settings = {"window_size": window_size,
                 "lr": lr, 
                 "weight_decay": weight_decay, 
