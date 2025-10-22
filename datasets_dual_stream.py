@@ -102,8 +102,8 @@ class DualStreamDataset(torch.utils.data.Dataset):
                 flow_path = self.flow_dataset.get_flow(video_name, i, j)
                 if flow_path:
                     flow_img = Image.open(flow_path).convert("RGB")
-                    if self.frame_dataset.transform:
-                        flow_img = self.frame_dataset.transform(flow_img)
+                    if self.flow_dataset.transform:
+                        flow_img = self.flow_dataset.transform(flow_img)
                     else:
                         flow_img = T.ToTensor()(flow_img)
                     flow_imgs.append(flow_img)
