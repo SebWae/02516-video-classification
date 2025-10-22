@@ -18,7 +18,7 @@ def train_single_frame(model, train_loader, val_loader, device, optimizer, sched
         #For each epoch
         train_correct = 0
         train_loss = []
-        for _, (data, target) in enumerate(train_loader):
+        for data, target in train_loader:
             data, target = data.to(device), target.to(device)
             #Zero the gradients computed for each weight
             optimizer.zero_grad()
@@ -136,7 +136,7 @@ def train_dual_stream(model, train_loader, val_loader, device, optimizer, schedu
         #For each epoch
         train_correct = 0
         train_loss = []
-        for _, (frame_data, flow_data, target) in enumerate(train_loader):
+        for frame_data, flow_data, target in train_loader:
             frame_data, flow_data, target = frame_data.to(device), flow_data.to(device), target.to(device)
             #Zero the gradients computed for each weight
             optimizer.zero_grad()
