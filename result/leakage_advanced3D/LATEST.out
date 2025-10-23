@@ -1,0 +1,545 @@
+Found 500 videos in train split
+Class to label mapping: {'BodyWeightSquats': 0, 'HandstandPushups': 1, 'HandstandWalking': 2, 'JumpRope': 3, 'JumpingJack': 4, 'Lunges': 5, 'PullUps': 6, 'PushUps': 7, 'TrampolineJumping': 8, 'WallPushups': 9}
+Found 10 classes: ['BodyWeightSquats', 'HandstandPushups', 'HandstandWalking', 'JumpRope', 'JumpingJack', 'Lunges', 'PullUps', 'PushUps', 'TrampolineJumping', 'WallPushups']
+Found 120 videos in val split
+Class to label mapping: {'BodyWeightSquats': 0, 'HandstandPushups': 1, 'HandstandWalking': 2, 'JumpRope': 3, 'JumpingJack': 4, 'Lunges': 5, 'PullUps': 6, 'PushUps': 7, 'TrampolineJumping': 8, 'WallPushups': 9}
+Found 10 classes: ['BodyWeightSquats', 'HandstandPushups', 'HandstandWalking', 'JumpRope', 'JumpingJack', 'Lunges', 'PullUps', 'PushUps', 'TrampolineJumping', 'WallPushups']
+Found 120 videos in test split
+Class to label mapping: {'BodyWeightSquats': 0, 'HandstandPushups': 1, 'HandstandWalking': 2, 'JumpRope': 3, 'JumpingJack': 4, 'Lunges': 5, 'PullUps': 6, 'PushUps': 7, 'TrampolineJumping': 8, 'WallPushups': 9}
+Found 10 classes: ['BodyWeightSquats', 'HandstandPushups', 'HandstandWalking', 'JumpRope', 'JumpingJack', 'Lunges', 'PullUps', 'PushUps', 'TrampolineJumping', 'WallPushups']
+Number of classes: 10
+Class names: ['BodyWeightSquats', 'HandstandPushups', 'HandstandWalking', 'JumpRope', 'JumpingJack', 'Lunges', 'PullUps', 'PushUps', 'TrampolineJumping', 'WallPushups']
+Train samples: 500
+Val samples: 120
+Test samples: 120
+Total parameters: 1,473,610
+Testing forward pass...
+Forward pass successful! Output shape: torch.Size([2, 10])
+
+============================================================
+STARTING TRAINING WITH EARLY STOPPING
+============================================================
+Using device: cuda
+Early stopping enabled: patience=15, min_epochs=10
+Epoch 1, Batch 0, Loss: 2.2936
+Epoch 1, Batch 20, Loss: 2.3060
+Epoch 1, Batch 40, Loss: 2.2537
+  >>> New best model saved :) Val Acc: 20.00%
+Epoch [1/100], Train Loss: 2.2923, Train Acc: 13.40%, Val Loss: 2.2600, Val Acc: 20.00%, Patience: 0/15
+Epoch 2, Batch 0, Loss: 2.2341
+Epoch 2, Batch 20, Loss: 2.2646
+Epoch 2, Batch 40, Loss: 2.1556
+  >>> New best model saved :) Val Acc: 21.67%
+Epoch [2/100], Train Loss: 2.2317, Train Acc: 22.80%, Val Loss: 2.2201, Val Acc: 21.67%, Patience: 0/15
+Epoch 3, Batch 0, Loss: 2.2615
+Epoch 3, Batch 20, Loss: 2.1376
+Epoch 3, Batch 40, Loss: 2.1321
+Epoch [3/100], Train Loss: 2.1631, Train Acc: 25.60%, Val Loss: 2.2007, Val Acc: 20.83%, Patience: 0/15
+Epoch 4, Batch 0, Loss: 2.1798
+Epoch 4, Batch 20, Loss: 2.0793
+Epoch 4, Batch 40, Loss: 2.0666
+Epoch [4/100], Train Loss: 2.1292, Train Acc: 26.80%, Val Loss: 2.2054, Val Acc: 19.17%, Patience: 1/15
+Epoch 5, Batch 0, Loss: 2.1163
+Epoch 5, Batch 20, Loss: 2.1955
+Epoch 5, Batch 40, Loss: 2.0866
+  >>> New best model saved :) Val Acc: 22.50%
+Epoch [5/100], Train Loss: 2.0880, Train Acc: 29.20%, Val Loss: 2.1412, Val Acc: 22.50%, Patience: 0/15
+Epoch 6, Batch 0, Loss: 2.0469
+Epoch 6, Batch 20, Loss: 1.9348
+Epoch 6, Batch 40, Loss: 1.7302
+  >>> New best model saved :) Val Acc: 25.83%
+Epoch [6/100], Train Loss: 2.0150, Train Acc: 29.40%, Val Loss: 2.1497, Val Acc: 25.83%, Patience: 0/15
+Epoch 7, Batch 0, Loss: 2.1350
+Epoch 7, Batch 20, Loss: 2.1339
+Epoch 7, Batch 40, Loss: 1.9203
+  >>> New best model saved :) Val Acc: 27.50%
+Epoch [7/100], Train Loss: 1.9452, Train Acc: 31.20%, Val Loss: 2.0303, Val Acc: 27.50%, Patience: 0/15
+Epoch 8, Batch 0, Loss: 1.9500
+Epoch 8, Batch 20, Loss: 1.8455
+Epoch 8, Batch 40, Loss: 2.0095
+Epoch [8/100], Train Loss: 1.9268, Train Acc: 28.20%, Val Loss: 2.0419, Val Acc: 27.50%, Patience: 1/15
+Epoch 9, Batch 0, Loss: 1.6169
+Epoch 9, Batch 20, Loss: 1.8512
+Epoch 9, Batch 40, Loss: 1.7919
+Epoch [9/100], Train Loss: 1.8526, Train Acc: 34.60%, Val Loss: 2.1023, Val Acc: 21.67%, Patience: 2/15
+Epoch 10, Batch 0, Loss: 1.8125
+Epoch 10, Batch 20, Loss: 1.7761
+Epoch 10, Batch 40, Loss: 1.4791
+  >>> New best model saved :) Val Acc: 29.17%
+Epoch [10/100], Train Loss: 1.8507, Train Acc: 35.80%, Val Loss: 1.9687, Val Acc: 29.17%, Patience: 0/15
+Epoch 11, Batch 0, Loss: 1.5662
+Epoch 11, Batch 20, Loss: 1.8988
+Epoch 11, Batch 40, Loss: 1.7832
+  >>> New best model saved :) Val Acc: 31.67%
+Epoch [11/100], Train Loss: 1.8145, Train Acc: 33.20%, Val Loss: 2.0523, Val Acc: 31.67%, Patience: 0/15
+Epoch 12, Batch 0, Loss: 1.9132
+Epoch 12, Batch 20, Loss: 2.1319
+Epoch 12, Batch 40, Loss: 2.0108
+Epoch [12/100], Train Loss: 1.7809, Train Acc: 38.00%, Val Loss: 1.9055, Val Acc: 30.83%, Patience: 0/15
+Epoch 13, Batch 0, Loss: 1.5269
+Epoch 13, Batch 20, Loss: 1.5846
+Epoch 13, Batch 40, Loss: 1.4796
+Epoch [13/100], Train Loss: 1.7101, Train Acc: 41.00%, Val Loss: 1.9545, Val Acc: 31.67%, Patience: 1/15
+Epoch 14, Batch 0, Loss: 1.5586
+Epoch 14, Batch 20, Loss: 1.9664
+Epoch 14, Batch 40, Loss: 1.5264
+Epoch [14/100], Train Loss: 1.7141, Train Acc: 39.20%, Val Loss: 2.0395, Val Acc: 30.83%, Patience: 2/15
+Epoch 15, Batch 0, Loss: 2.0288
+Epoch 15, Batch 20, Loss: 1.8193
+Epoch 15, Batch 40, Loss: 1.5192
+  >>> New best model saved :) Val Acc: 35.00%
+Epoch [15/100], Train Loss: 1.6772, Train Acc: 40.40%, Val Loss: 1.8125, Val Acc: 35.00%, Patience: 0/15
+Epoch 16, Batch 0, Loss: 1.3391
+Epoch 16, Batch 20, Loss: 1.3024
+Epoch 16, Batch 40, Loss: 1.6217
+  >>> New best model saved :) Val Acc: 35.83%
+Epoch [16/100], Train Loss: 1.5918, Train Acc: 46.20%, Val Loss: 1.9546, Val Acc: 35.83%, Patience: 0/15
+Epoch 17, Batch 0, Loss: 1.1805
+Epoch 17, Batch 20, Loss: 1.1766
+Epoch 17, Batch 40, Loss: 1.5462
+Epoch [17/100], Train Loss: 1.6064, Train Acc: 41.00%, Val Loss: 1.9977, Val Acc: 33.33%, Patience: 1/15
+Epoch 18, Batch 0, Loss: 1.6064
+Epoch 18, Batch 20, Loss: 2.0657
+Epoch 18, Batch 40, Loss: 1.4534
+Epoch [18/100], Train Loss: 1.5481, Train Acc: 46.80%, Val Loss: 1.9388, Val Acc: 34.17%, Patience: 2/15
+Epoch 19, Batch 0, Loss: 1.6840
+Epoch 19, Batch 20, Loss: 1.2159
+Epoch 19, Batch 40, Loss: 1.2758
+  >>> New best model saved :) Val Acc: 42.50%
+Epoch [19/100], Train Loss: 1.5221, Train Acc: 47.80%, Val Loss: 1.7655, Val Acc: 42.50%, Patience: 0/15
+Epoch 20, Batch 0, Loss: 1.2801
+Epoch 20, Batch 20, Loss: 1.5735
+Epoch 20, Batch 40, Loss: 1.6660
+Epoch [20/100], Train Loss: 1.5351, Train Acc: 47.60%, Val Loss: 1.7582, Val Acc: 40.00%, Patience: 0/15
+Epoch 21, Batch 0, Loss: 1.5866
+Epoch 21, Batch 20, Loss: 1.8821
+Epoch 21, Batch 40, Loss: 1.5359
+Epoch [21/100], Train Loss: 1.4544, Train Acc: 50.80%, Val Loss: 1.7714, Val Acc: 39.17%, Patience: 1/15
+Epoch 22, Batch 0, Loss: 1.4832
+Epoch 22, Batch 20, Loss: 1.3933
+Epoch 22, Batch 40, Loss: 1.0781
+Epoch [22/100], Train Loss: 1.4468, Train Acc: 51.60%, Val Loss: 1.6275, Val Acc: 40.00%, Patience: 0/15
+Epoch 23, Batch 0, Loss: 1.2942
+Epoch 23, Batch 20, Loss: 1.3065
+Epoch 23, Batch 40, Loss: 1.5097
+Epoch [23/100], Train Loss: 1.4444, Train Acc: 51.80%, Val Loss: 1.8375, Val Acc: 41.67%, Patience: 1/15
+Epoch 24, Batch 0, Loss: 1.7908
+Epoch 24, Batch 20, Loss: 1.5268
+Epoch 24, Batch 40, Loss: 1.2765
+Epoch [24/100], Train Loss: 1.4551, Train Acc: 53.00%, Val Loss: 1.8764, Val Acc: 35.83%, Patience: 2/15
+Epoch 25, Batch 0, Loss: 1.5687
+Epoch 25, Batch 20, Loss: 1.4804
+Epoch 25, Batch 40, Loss: 0.9668
+Epoch [25/100], Train Loss: 1.3608, Train Acc: 52.40%, Val Loss: 2.3064, Val Acc: 30.83%, Patience: 3/15
+Epoch 26, Batch 0, Loss: 1.4617
+Epoch 26, Batch 20, Loss: 1.5379
+Epoch 26, Batch 40, Loss: 1.3831
+Epoch [26/100], Train Loss: 1.3411, Train Acc: 53.00%, Val Loss: 1.5918, Val Acc: 42.50%, Patience: 0/15
+Epoch 27, Batch 0, Loss: 1.5209
+Epoch 27, Batch 20, Loss: 1.0570
+Epoch 27, Batch 40, Loss: 1.2067
+  >>> New best model saved :) Val Acc: 46.67%
+Epoch [27/100], Train Loss: 1.3191, Train Acc: 56.80%, Val Loss: 1.5991, Val Acc: 46.67%, Patience: 0/15
+Epoch 28, Batch 0, Loss: 1.1492
+Epoch 28, Batch 20, Loss: 0.8527
+Epoch 28, Batch 40, Loss: 1.3383
+  >>> New best model saved :) Val Acc: 47.50%
+Epoch [28/100], Train Loss: 1.2705, Train Acc: 59.20%, Val Loss: 1.5183, Val Acc: 47.50%, Patience: 0/15
+Epoch 29, Batch 0, Loss: 0.8043
+Epoch 29, Batch 20, Loss: 1.2907
+Epoch 29, Batch 40, Loss: 1.1034
+Epoch [29/100], Train Loss: 1.2571, Train Acc: 59.60%, Val Loss: 1.9152, Val Acc: 35.83%, Patience: 1/15
+Epoch 30, Batch 0, Loss: 1.4728
+Epoch 30, Batch 20, Loss: 1.3778
+Epoch 30, Batch 40, Loss: 1.8353
+Epoch [30/100], Train Loss: 1.2945, Train Acc: 57.40%, Val Loss: 1.6508, Val Acc: 45.00%, Patience: 2/15
+Epoch 31, Batch 0, Loss: 1.1529
+Epoch 31, Batch 20, Loss: 1.4069
+Epoch 31, Batch 40, Loss: 1.4955
+Epoch [31/100], Train Loss: 1.2576, Train Acc: 58.60%, Val Loss: 1.5902, Val Acc: 46.67%, Patience: 3/15
+Epoch 32, Batch 0, Loss: 0.9443
+Epoch 32, Batch 20, Loss: 0.9292
+Epoch 32, Batch 40, Loss: 1.0885
+Epoch [32/100], Train Loss: 1.2615, Train Acc: 55.40%, Val Loss: 1.6123, Val Acc: 42.50%, Patience: 4/15
+Epoch 33, Batch 0, Loss: 0.8521
+Epoch 33, Batch 20, Loss: 1.3233
+Epoch 33, Batch 40, Loss: 1.4687
+  >>> New best model saved :) Val Acc: 52.50%
+Epoch [33/100], Train Loss: 1.2155, Train Acc: 59.80%, Val Loss: 1.5501, Val Acc: 52.50%, Patience: 0/15
+Epoch 34, Batch 0, Loss: 1.4659
+Epoch 34, Batch 20, Loss: 0.9888
+Epoch 34, Batch 40, Loss: 1.4119
+  >>> New best model saved :) Val Acc: 60.83%
+Epoch [34/100], Train Loss: 1.1655, Train Acc: 63.80%, Val Loss: 1.3108, Val Acc: 60.83%, Patience: 0/15
+Epoch 35, Batch 0, Loss: 0.8763
+Epoch 35, Batch 20, Loss: 0.7076
+Epoch 35, Batch 40, Loss: 1.2436
+Epoch [35/100], Train Loss: 1.0562, Train Acc: 63.40%, Val Loss: 1.4822, Val Acc: 48.33%, Patience: 1/15
+Epoch 36, Batch 0, Loss: 0.6973
+Epoch 36, Batch 20, Loss: 1.1333
+Epoch 36, Batch 40, Loss: 1.0305
+Epoch [36/100], Train Loss: 1.0404, Train Acc: 66.60%, Val Loss: 1.3698, Val Acc: 56.67%, Patience: 2/15
+Epoch 37, Batch 0, Loss: 0.9209
+Epoch 37, Batch 20, Loss: 0.7732
+Epoch 37, Batch 40, Loss: 1.4179
+  >>> New best model saved :) Val Acc: 63.33%
+Epoch [37/100], Train Loss: 1.0599, Train Acc: 65.00%, Val Loss: 1.2660, Val Acc: 63.33%, Patience: 0/15
+Epoch 38, Batch 0, Loss: 0.9948
+Epoch 38, Batch 20, Loss: 1.0741
+Epoch 38, Batch 40, Loss: 1.0567
+Epoch [38/100], Train Loss: 1.0460, Train Acc: 66.60%, Val Loss: 1.3808, Val Acc: 52.50%, Patience: 1/15
+Epoch 39, Batch 0, Loss: 1.6156
+Epoch 39, Batch 20, Loss: 1.1021
+Epoch 39, Batch 40, Loss: 0.5038
+Epoch [39/100], Train Loss: 1.0593, Train Acc: 65.80%, Val Loss: 1.2141, Val Acc: 62.50%, Patience: 0/15
+Epoch 40, Batch 0, Loss: 0.8058
+Epoch 40, Batch 20, Loss: 1.0061
+Epoch 40, Batch 40, Loss: 1.1067
+Epoch [40/100], Train Loss: 0.9812, Train Acc: 68.40%, Val Loss: 1.3208, Val Acc: 60.00%, Patience: 1/15
+Epoch 41, Batch 0, Loss: 1.1419
+Epoch 41, Batch 20, Loss: 0.8201
+Epoch 41, Batch 40, Loss: 0.6763
+Epoch [41/100], Train Loss: 0.9579, Train Acc: 68.60%, Val Loss: 1.2857, Val Acc: 62.50%, Patience: 2/15
+Epoch 42, Batch 0, Loss: 0.6257
+Epoch 42, Batch 20, Loss: 1.6337
+Epoch 42, Batch 40, Loss: 0.6710
+Epoch [42/100], Train Loss: 1.0120, Train Acc: 68.60%, Val Loss: 1.2583, Val Acc: 54.17%, Patience: 3/15
+Epoch 43, Batch 0, Loss: 0.7038
+Epoch 43, Batch 20, Loss: 1.1408
+Epoch 43, Batch 40, Loss: 0.7173
+Epoch [43/100], Train Loss: 0.8869, Train Acc: 71.20%, Val Loss: 1.2363, Val Acc: 60.83%, Patience: 4/15
+Epoch 44, Batch 0, Loss: 1.0155
+Epoch 44, Batch 20, Loss: 0.8992
+Epoch 44, Batch 40, Loss: 1.2237
+Epoch [44/100], Train Loss: 0.9961, Train Acc: 67.40%, Val Loss: 1.4663, Val Acc: 59.17%, Patience: 5/15
+Epoch 45, Batch 0, Loss: 0.4773
+Epoch 45, Batch 20, Loss: 1.0821
+Epoch 45, Batch 40, Loss: 0.7113
+Epoch [45/100], Train Loss: 0.8938, Train Acc: 71.80%, Val Loss: 1.3003, Val Acc: 55.00%, Patience: 6/15
+Epoch 46, Batch 0, Loss: 0.6378
+Epoch 46, Batch 20, Loss: 0.6035
+Epoch 46, Batch 40, Loss: 1.2987
+Epoch [46/100], Train Loss: 0.8283, Train Acc: 72.00%, Val Loss: 1.3087, Val Acc: 62.50%, Patience: 7/15
+Epoch 47, Batch 0, Loss: 0.8944
+Epoch 47, Batch 20, Loss: 0.7011
+Epoch 47, Batch 40, Loss: 0.6976
+Epoch [47/100], Train Loss: 0.8630, Train Acc: 74.40%, Val Loss: 1.5839, Val Acc: 52.50%, Patience: 8/15
+Epoch 48, Batch 0, Loss: 0.9083
+Epoch 48, Batch 20, Loss: 0.5347
+Epoch 48, Batch 40, Loss: 1.1739
+Epoch [48/100], Train Loss: 0.8784, Train Acc: 71.80%, Val Loss: 1.2746, Val Acc: 59.17%, Patience: 9/15
+Epoch 49, Batch 0, Loss: 0.9939
+Epoch 49, Batch 20, Loss: 0.8909
+Epoch 49, Batch 40, Loss: 0.7003
+Epoch [49/100], Train Loss: 0.8235, Train Acc: 72.40%, Val Loss: 1.1477, Val Acc: 63.33%, Patience: 0/15
+Epoch 50, Batch 0, Loss: 1.1216
+Epoch 50, Batch 20, Loss: 0.7532
+Epoch 50, Batch 40, Loss: 0.5533
+Epoch [50/100], Train Loss: 0.7431, Train Acc: 76.20%, Val Loss: 1.5021, Val Acc: 55.00%, Patience: 1/15
+Epoch 51, Batch 0, Loss: 1.0438
+Epoch 51, Batch 20, Loss: 0.9190
+Epoch 51, Batch 40, Loss: 1.0011
+  >>> New best model saved :) Val Acc: 70.00%
+Epoch [51/100], Train Loss: 0.8651, Train Acc: 72.00%, Val Loss: 1.1519, Val Acc: 70.00%, Patience: 0/15
+Epoch 52, Batch 0, Loss: 0.5636
+Epoch 52, Batch 20, Loss: 0.7303
+Epoch 52, Batch 40, Loss: 0.5021
+Epoch [52/100], Train Loss: 0.7644, Train Acc: 76.60%, Val Loss: 1.2718, Val Acc: 56.67%, Patience: 1/15
+Epoch 53, Batch 0, Loss: 0.5720
+Epoch 53, Batch 20, Loss: 0.4485
+Epoch 53, Batch 40, Loss: 0.7497
+Epoch [53/100], Train Loss: 0.7781, Train Acc: 74.20%, Val Loss: 1.0564, Val Acc: 69.17%, Patience: 0/15
+Epoch 54, Batch 0, Loss: 1.0922
+Epoch 54, Batch 20, Loss: 0.5447
+Epoch 54, Batch 40, Loss: 0.2974
+Epoch [54/100], Train Loss: 0.6775, Train Acc: 79.60%, Val Loss: 1.2586, Val Acc: 61.67%, Patience: 1/15
+Epoch 55, Batch 0, Loss: 0.5738
+Epoch 55, Batch 20, Loss: 0.6671
+Epoch 55, Batch 40, Loss: 0.2940
+Epoch [55/100], Train Loss: 0.7257, Train Acc: 77.80%, Val Loss: 1.1911, Val Acc: 63.33%, Patience: 2/15
+Epoch 56, Batch 0, Loss: 0.4498
+Epoch 56, Batch 20, Loss: 0.4177
+Epoch 56, Batch 40, Loss: 0.6663
+Epoch [56/100], Train Loss: 0.6874, Train Acc: 77.00%, Val Loss: 1.1103, Val Acc: 65.83%, Patience: 3/15
+Epoch 57, Batch 0, Loss: 0.3244
+Epoch 57, Batch 20, Loss: 0.9596
+Epoch 57, Batch 40, Loss: 0.5389
+Epoch [57/100], Train Loss: 0.7814, Train Acc: 75.20%, Val Loss: 1.1550, Val Acc: 62.50%, Patience: 4/15
+Epoch 58, Batch 0, Loss: 0.6471
+Epoch 58, Batch 20, Loss: 0.5265
+Epoch 58, Batch 40, Loss: 1.1176
+Epoch [58/100], Train Loss: 0.6984, Train Acc: 78.40%, Val Loss: 1.2050, Val Acc: 65.83%, Patience: 5/15
+Epoch 59, Batch 0, Loss: 0.5466
+Epoch 59, Batch 20, Loss: 0.6227
+Epoch 59, Batch 40, Loss: 0.8994
+Epoch [59/100], Train Loss: 0.6227, Train Acc: 81.60%, Val Loss: 1.4747, Val Acc: 59.17%, Patience: 6/15
+Epoch 60, Batch 0, Loss: 0.3039
+Epoch 60, Batch 20, Loss: 0.3253
+Epoch 60, Batch 40, Loss: 0.5949
+Epoch [60/100], Train Loss: 0.6354, Train Acc: 79.00%, Val Loss: 1.0712, Val Acc: 67.50%, Patience: 7/15
+Epoch 61, Batch 0, Loss: 0.1811
+Epoch 61, Batch 20, Loss: 0.0826
+Epoch 61, Batch 40, Loss: 1.4804
+  >>> New best model saved :) Val Acc: 72.50%
+Epoch [61/100], Train Loss: 0.6325, Train Acc: 80.40%, Val Loss: 0.9676, Val Acc: 72.50%, Patience: 0/15
+Epoch 62, Batch 0, Loss: 0.2498
+Epoch 62, Batch 20, Loss: 0.4086
+Epoch 62, Batch 40, Loss: 0.5443
+Epoch [62/100], Train Loss: 0.6279, Train Acc: 79.40%, Val Loss: 1.2340, Val Acc: 63.33%, Patience: 1/15
+Epoch 63, Batch 0, Loss: 0.8290
+Epoch 63, Batch 20, Loss: 0.5720
+Epoch 63, Batch 40, Loss: 0.3315
+  >>> New best model saved :) Val Acc: 75.00%
+Epoch [63/100], Train Loss: 0.6243, Train Acc: 79.60%, Val Loss: 1.0454, Val Acc: 75.00%, Patience: 0/15
+Epoch 64, Batch 0, Loss: 0.7517
+Epoch 64, Batch 20, Loss: 0.6217
+Epoch 64, Batch 40, Loss: 0.4419
+Epoch [64/100], Train Loss: 0.5805, Train Acc: 80.40%, Val Loss: 1.0083, Val Acc: 71.67%, Patience: 1/15
+Epoch 65, Batch 0, Loss: 1.1389
+Epoch 65, Batch 20, Loss: 0.6536
+Epoch 65, Batch 40, Loss: 0.1563
+Epoch [65/100], Train Loss: 0.5869, Train Acc: 82.20%, Val Loss: 0.9355, Val Acc: 74.17%, Patience: 0/15
+Epoch 66, Batch 0, Loss: 0.3787
+Epoch 66, Batch 20, Loss: 1.0317
+Epoch 66, Batch 40, Loss: 0.5194
+Epoch [66/100], Train Loss: 0.6421, Train Acc: 79.60%, Val Loss: 1.1277, Val Acc: 67.50%, Patience: 1/15
+Epoch 67, Batch 0, Loss: 1.0908
+Epoch 67, Batch 20, Loss: 0.8898
+Epoch 67, Batch 40, Loss: 0.8770
+Epoch [67/100], Train Loss: 0.5867, Train Acc: 83.20%, Val Loss: 0.8791, Val Acc: 72.50%, Patience: 0/15
+Epoch 68, Batch 0, Loss: 0.3435
+Epoch 68, Batch 20, Loss: 1.5916
+Epoch 68, Batch 40, Loss: 0.2071
+Epoch [68/100], Train Loss: 0.6160, Train Acc: 81.60%, Val Loss: 0.9390, Val Acc: 70.00%, Patience: 1/15
+Epoch 69, Batch 0, Loss: 0.5122
+Epoch 69, Batch 20, Loss: 1.1193
+Epoch 69, Batch 40, Loss: 0.3985
+  >>> New best model saved :) Val Acc: 77.50%
+Epoch [69/100], Train Loss: 0.5635, Train Acc: 81.20%, Val Loss: 0.7726, Val Acc: 77.50%, Patience: 0/15
+Epoch 70, Batch 0, Loss: 0.1755
+Epoch 70, Batch 20, Loss: 0.1653
+Epoch 70, Batch 40, Loss: 0.4717
+Epoch [70/100], Train Loss: 0.5173, Train Acc: 83.20%, Val Loss: 0.9049, Val Acc: 77.50%, Patience: 1/15
+Epoch 71, Batch 0, Loss: 0.6050
+Epoch 71, Batch 20, Loss: 1.1641
+Epoch 71, Batch 40, Loss: 0.2842
+Epoch [71/100], Train Loss: 0.5138, Train Acc: 85.40%, Val Loss: 1.0582, Val Acc: 70.83%, Patience: 2/15
+Epoch 72, Batch 0, Loss: 0.6710
+Epoch 72, Batch 20, Loss: 0.8445
+Epoch 72, Batch 40, Loss: 0.2610
+  >>> New best model saved :) Val Acc: 79.17%
+Epoch [72/100], Train Loss: 0.5575, Train Acc: 82.60%, Val Loss: 0.7357, Val Acc: 79.17%, Patience: 0/15
+Epoch 73, Batch 0, Loss: 0.3985
+Epoch 73, Batch 20, Loss: 0.3256
+Epoch 73, Batch 40, Loss: 0.7804
+Epoch [73/100], Train Loss: 0.5059, Train Acc: 82.40%, Val Loss: 0.7793, Val Acc: 77.50%, Patience: 1/15
+Epoch 74, Batch 0, Loss: 0.4037
+Epoch 74, Batch 20, Loss: 0.6096
+Epoch 74, Batch 40, Loss: 0.9452
+Epoch [74/100], Train Loss: 0.5070, Train Acc: 84.20%, Val Loss: 0.8917, Val Acc: 71.67%, Patience: 2/15
+Epoch 75, Batch 0, Loss: 0.4294
+Epoch 75, Batch 20, Loss: 0.2044
+Epoch 75, Batch 40, Loss: 0.2442
+Epoch [75/100], Train Loss: 0.4494, Train Acc: 87.20%, Val Loss: 0.7161, Val Acc: 73.33%, Patience: 0/15
+Epoch 76, Batch 0, Loss: 0.4197
+Epoch 76, Batch 20, Loss: 0.0836
+Epoch 76, Batch 40, Loss: 0.9477
+Epoch [76/100], Train Loss: 0.4948, Train Acc: 84.00%, Val Loss: 0.9075, Val Acc: 78.33%, Patience: 1/15
+Epoch 77, Batch 0, Loss: 0.2425
+Epoch 77, Batch 20, Loss: 0.3369
+Epoch 77, Batch 40, Loss: 0.1467
+Epoch [77/100], Train Loss: 0.4647, Train Acc: 86.60%, Val Loss: 1.0795, Val Acc: 65.83%, Patience: 2/15
+Epoch 78, Batch 0, Loss: 0.2991
+Epoch 78, Batch 20, Loss: 0.1764
+Epoch 78, Batch 40, Loss: 0.1290
+Epoch [78/100], Train Loss: 0.4609, Train Acc: 85.00%, Val Loss: 1.1418, Val Acc: 66.67%, Patience: 3/15
+Epoch 79, Batch 0, Loss: 0.1606
+Epoch 79, Batch 20, Loss: 1.0935
+Epoch 79, Batch 40, Loss: 0.2537
+Epoch [79/100], Train Loss: 0.4185, Train Acc: 87.20%, Val Loss: 0.9342, Val Acc: 76.67%, Patience: 4/15
+Epoch 80, Batch 0, Loss: 0.3227
+Epoch 80, Batch 20, Loss: 0.3277
+Epoch 80, Batch 40, Loss: 0.4519
+Epoch [80/100], Train Loss: 0.4499, Train Acc: 85.80%, Val Loss: 0.8911, Val Acc: 75.00%, Patience: 5/15
+Epoch 81, Batch 0, Loss: 0.2365
+Epoch 81, Batch 20, Loss: 0.5752
+Epoch 81, Batch 40, Loss: 0.5994
+  >>> New best model saved :) Val Acc: 80.00%
+Epoch [81/100], Train Loss: 0.4376, Train Acc: 87.20%, Val Loss: 0.7265, Val Acc: 80.00%, Patience: 0/15
+Epoch 82, Batch 0, Loss: 0.2233
+Epoch 82, Batch 20, Loss: 0.3352
+Epoch 82, Batch 40, Loss: 0.2754
+Epoch [82/100], Train Loss: 0.4266, Train Acc: 85.80%, Val Loss: 0.6701, Val Acc: 79.17%, Patience: 0/15
+Epoch 83, Batch 0, Loss: 0.0610
+Epoch 83, Batch 20, Loss: 0.8861
+Epoch 83, Batch 40, Loss: 0.2647
+  >>> New best model saved :) Val Acc: 82.50%
+Epoch [83/100], Train Loss: 0.4532, Train Acc: 84.20%, Val Loss: 0.7518, Val Acc: 82.50%, Patience: 0/15
+Epoch 84, Batch 0, Loss: 0.2172
+Epoch 84, Batch 20, Loss: 0.1593
+Epoch 84, Batch 40, Loss: 0.6172
+  >>> New best model saved :) Val Acc: 83.33%
+Epoch [84/100], Train Loss: 0.3735, Train Acc: 88.60%, Val Loss: 0.7362, Val Acc: 83.33%, Patience: 0/15
+Epoch 85, Batch 0, Loss: 0.1291
+Epoch 85, Batch 20, Loss: 0.5533
+Epoch 85, Batch 40, Loss: 0.0604
+Epoch [85/100], Train Loss: 0.3936, Train Acc: 88.40%, Val Loss: 1.1623, Val Acc: 69.17%, Patience: 1/15
+Epoch 86, Batch 0, Loss: 0.5881
+Epoch 86, Batch 20, Loss: 0.1658
+Epoch 86, Batch 40, Loss: 0.4457
+Epoch [86/100], Train Loss: 0.3703, Train Acc: 87.80%, Val Loss: 0.8703, Val Acc: 75.00%, Patience: 2/15
+Epoch 87, Batch 0, Loss: 0.1127
+Epoch 87, Batch 20, Loss: 0.1392
+Epoch 87, Batch 40, Loss: 0.7367
+Epoch [87/100], Train Loss: 0.3775, Train Acc: 87.60%, Val Loss: 0.9030, Val Acc: 77.50%, Patience: 3/15
+Epoch 88, Batch 0, Loss: 0.1219
+Epoch 88, Batch 20, Loss: 0.2244
+Epoch 88, Batch 40, Loss: 0.1026
+Epoch [88/100], Train Loss: 0.2961, Train Acc: 91.20%, Val Loss: 1.1745, Val Acc: 68.33%, Patience: 4/15
+Epoch 89, Batch 0, Loss: 0.7523
+Epoch 89, Batch 20, Loss: 0.6602
+Epoch 89, Batch 40, Loss: 0.4295
+Epoch [89/100], Train Loss: 0.4431, Train Acc: 85.00%, Val Loss: 0.7672, Val Acc: 74.17%, Patience: 5/15
+Epoch 90, Batch 0, Loss: 0.1904
+Epoch 90, Batch 20, Loss: 0.2478
+Epoch 90, Batch 40, Loss: 0.2351
+Epoch [90/100], Train Loss: 0.3277, Train Acc: 89.00%, Val Loss: 0.9321, Val Acc: 75.00%, Patience: 6/15
+Epoch 91, Batch 0, Loss: 0.4662
+Epoch 91, Batch 20, Loss: 0.2432
+Epoch 91, Batch 40, Loss: 0.1256
+Epoch [91/100], Train Loss: 0.3296, Train Acc: 88.00%, Val Loss: 0.7227, Val Acc: 79.17%, Patience: 7/15
+Epoch 92, Batch 0, Loss: 0.1416
+Epoch 92, Batch 20, Loss: 0.1906
+Epoch 92, Batch 40, Loss: 1.0741
+Epoch [92/100], Train Loss: 0.4083, Train Acc: 85.40%, Val Loss: 1.0071, Val Acc: 70.83%, Patience: 8/15
+Epoch 93, Batch 0, Loss: 0.1052
+Epoch 93, Batch 20, Loss: 0.8336
+Epoch 93, Batch 40, Loss: 0.0962
+Epoch [93/100], Train Loss: 0.3848, Train Acc: 86.60%, Val Loss: 0.8717, Val Acc: 73.33%, Patience: 9/15
+Epoch 94, Batch 0, Loss: 0.1450
+Epoch 94, Batch 20, Loss: 0.8209
+Epoch 94, Batch 40, Loss: 0.8082
+Epoch [94/100], Train Loss: 0.3642, Train Acc: 88.20%, Val Loss: 0.7858, Val Acc: 80.00%, Patience: 10/15
+Epoch 95, Batch 0, Loss: 0.1835
+Epoch 95, Batch 20, Loss: 0.1795
+Epoch 95, Batch 40, Loss: 0.5174
+Epoch [95/100], Train Loss: 0.2949, Train Acc: 89.80%, Val Loss: 0.8369, Val Acc: 75.83%, Patience: 11/15
+Epoch 96, Batch 0, Loss: 0.1798
+Epoch 96, Batch 20, Loss: 0.5603
+Epoch 96, Batch 40, Loss: 0.4027
+Epoch [96/100], Train Loss: 0.3747, Train Acc: 88.00%, Val Loss: 1.0218, Val Acc: 67.50%, Patience: 12/15
+Epoch 97, Batch 0, Loss: 0.2138
+Epoch 97, Batch 20, Loss: 0.0792
+Epoch 97, Batch 40, Loss: 0.0634
+  >>> New best model saved :) Val Acc: 84.17%
+Epoch [97/100], Train Loss: 0.3274, Train Acc: 90.20%, Val Loss: 0.6693, Val Acc: 84.17%, Patience: 0/15
+Epoch 98, Batch 0, Loss: 0.3798
+Epoch 98, Batch 20, Loss: 0.2577
+Epoch 98, Batch 40, Loss: 0.6494
+Epoch [98/100], Train Loss: 0.3624, Train Acc: 88.00%, Val Loss: 0.7010, Val Acc: 81.67%, Patience: 1/15
+Epoch 99, Batch 0, Loss: 0.1370
+Epoch 99, Batch 20, Loss: 0.0541
+Epoch 99, Batch 40, Loss: 0.2174
+Epoch [99/100], Train Loss: 0.3521, Train Acc: 87.20%, Val Loss: 0.5644, Val Acc: 83.33%, Patience: 0/15
+Epoch 100, Batch 0, Loss: 0.0398
+Epoch 100, Batch 20, Loss: 0.0456
+Epoch 100, Batch 40, Loss: 0.3267
+Epoch [100/100], Train Loss: 0.2707, Train Acc: 90.40%, Val Loss: 0.7586, Val Acc: 82.50%, Patience: 1/15
+Training completed!
+Best validation accuracy: 84.17%
+
+============================================================
+EVALUATING ON TEST SET
+============================================================
+Batch 0/12, Running Accuracy: 70.00%
+Batch 10/12, Running Accuracy: 78.18%
+
+Final Test Accuracy: 80.00%
+
+============================================================
+DETAILED CLASSIFICATION REPORT
+============================================================
+                   precision    recall  f1-score   support
+
+ BodyWeightSquats     0.7500    0.7500    0.7500        12
+ HandstandPushups     0.5625    0.7500    0.6429        12
+ HandstandWalking     0.7000    0.5833    0.6364        12
+         JumpRope     0.8571    1.0000    0.9231        12
+      JumpingJack     1.0000    0.9167    0.9565        12
+           Lunges     1.0000    0.4167    0.5882        12
+          PullUps     0.8333    0.8333    0.8333        12
+          PushUps     1.0000    0.9167    0.9565        12
+TrampolineJumping     0.8333    0.8333    0.8333        12
+      WallPushups     0.7059    1.0000    0.8276        12
+
+         accuracy                         0.8000       120
+        macro avg     0.8242    0.8000    0.7948       120
+     weighted avg     0.8242    0.8000    0.7948       120
+
+
+Model saved as final_model.pth
+Results saved as experiment_results.json
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@hpc.dtu.dk>
+Subject: Job 26605727: <single_frame_cnn> in cluster <dcc> Done
+
+Job <single_frame_cnn> was submitted from host <hpclogin1> by user <s214397> in cluster <dcc> at Wed Oct 22 21:48:01 2025
+Job was executed on host(s) <4*n-62-18-13>, in queue <c02516>, as user <s214397> in cluster <dcc> at Wed Oct 22 21:48:02 2025
+</zhome/86/c/167853> was used as the home directory.
+</zhome/86/c/167853/02516-video-classification> was used as the working directory.
+Started at Wed Oct 22 21:48:02 2025
+Terminated at Wed Oct 22 22:06:49 2025
+Results reported at Wed Oct 22 22:06:49 2025
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#!/bin/sh
+### ------------- specify queue name ----------------
+#BSUB -q c02516
+### ------------- specify gpu request----------------
+#BSUB -gpu "num=1:mode=exclusive_process"
+### ------------- specify job name ----------------
+#BSUB -J single_frame_cnn
+### ------------- specify number of cores ----------------
+#BSUB -n 4
+#BSUB -R "span[hosts=1]"
+
+#BSUB -R "rusage[mem=20GB]"
+
+### ------------- specify wall-clock time (max allowed is 12:00)---------------- 
+#BSUB -W 08:00
+
+#BSUB -o OUTPUT_FILE%J.out
+#BSUB -e OUTPUT_FILE%J.err
+
+source venv_proj2/bin/activate
+python 3D_CNN.py
+
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   1045.36 sec.
+    Max Memory :                                 1215 MB
+    Average Memory :                             1134.90 MB
+    Total Requested Memory :                     81920.00 MB
+    Delta Memory :                               80705.00 MB
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                8
+    Run time :                                   1147 sec.
+    Turnaround time :                            1128 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file <OUTPUT_FILE26605727.err> for stderr output of this job.
+

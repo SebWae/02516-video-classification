@@ -18,4 +18,4 @@
 #BSUB -e OUTPUT_FILE%J.err
 
 source venv_proj2/bin/activate
-python single_frame.py
+python 3D_CNN.py

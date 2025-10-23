@@ -1,0 +1,246 @@
+
+Contents of /dtu/datasets1/02516/ucf101_noleakage/:
+  flows
+  frames
+  flows_png
+  metadata
+  videos
+Found 500 videos in train split
+Class to label mapping: {'BodyWeightSquats': 0, 'HandstandPushups': 1, 'HandstandWalking': 2, 'JumpRope': 3, 'JumpingJack': 4, 'Lunges': 5, 'PullUps': 6, 'PushUps': 7, 'TrampolineJumping': 8, 'WallPushups': 9}
+Found 10 classes: ['BodyWeightSquats', 'HandstandPushups', 'HandstandWalking', 'JumpRope', 'JumpingJack', 'Lunges', 'PullUps', 'PushUps', 'TrampolineJumping', 'WallPushups']
+Found 120 videos in val split
+Class to label mapping: {'BodyWeightSquats': 0, 'HandstandPushups': 1, 'HandstandWalking': 2, 'JumpRope': 3, 'JumpingJack': 4, 'Lunges': 5, 'PullUps': 6, 'PushUps': 7, 'TrampolineJumping': 8, 'WallPushups': 9}
+Found 10 classes: ['BodyWeightSquats', 'HandstandPushups', 'HandstandWalking', 'JumpRope', 'JumpingJack', 'Lunges', 'PullUps', 'PushUps', 'TrampolineJumping', 'WallPushups']
+Found 120 videos in test split
+Class to label mapping: {'BodyWeightSquats': 0, 'HandstandPushups': 1, 'HandstandWalking': 2, 'JumpRope': 3, 'JumpingJack': 4, 'Lunges': 5, 'PullUps': 6, 'PushUps': 7, 'TrampolineJumping': 8, 'WallPushups': 9}
+Found 10 classes: ['BodyWeightSquats', 'HandstandPushups', 'HandstandWalking', 'JumpRope', 'JumpingJack', 'Lunges', 'PullUps', 'PushUps', 'TrampolineJumping', 'WallPushups']
+Number of classes: 10
+Class names: ['BodyWeightSquats', 'HandstandPushups', 'HandstandWalking', 'JumpRope', 'JumpingJack', 'Lunges', 'PullUps', 'PushUps', 'TrampolineJumping', 'WallPushups']
+Train samples: 500
+Val samples: 120
+Test samples: 120
+Total parameters: 1,473,610
+Testing forward pass...
+Forward pass successful! Output shape: torch.Size([2, 10])
+
+============================================================
+STARTING TRAINING WITH EARLY STOPPING
+============================================================
+Using device: cuda
+Early stopping enabled: patience=15, min_epochs=10
+Epoch 1, Batch 0, Loss: 2.2722
+Epoch 1, Batch 20, Loss: 2.3105
+Epoch 1, Batch 40, Loss: 2.2985
+  >>> New best model saved :) Val Acc: 11.67%
+Epoch [1/100], Train Loss: 2.2859, Train Acc: 13.60%, Val Loss: 2.2894, Val Acc: 11.67%, Patience: 0/15
+Epoch 2, Batch 0, Loss: 2.2381
+Epoch 2, Batch 20, Loss: 2.2886
+Epoch 2, Batch 40, Loss: 2.2171
+  >>> New best model saved :) Val Acc: 15.83%
+Epoch [2/100], Train Loss: 2.2360, Train Acc: 20.20%, Val Loss: 2.2654, Val Acc: 15.83%, Patience: 0/15
+Epoch 3, Batch 0, Loss: 2.2192
+Epoch 3, Batch 20, Loss: 2.1297
+Epoch 3, Batch 40, Loss: 2.0546
+Epoch [3/100], Train Loss: 2.1711, Train Acc: 22.20%, Val Loss: 2.2543, Val Acc: 14.17%, Patience: 0/15
+Epoch 4, Batch 0, Loss: 2.0709
+Epoch 4, Batch 20, Loss: 2.0767
+Epoch 4, Batch 40, Loss: 2.1865
+  >>> New best model saved :) Val Acc: 23.33%
+Epoch [4/100], Train Loss: 2.0982, Train Acc: 26.20%, Val Loss: 2.2086, Val Acc: 23.33%, Patience: 0/15
+Epoch 5, Batch 0, Loss: 1.9053
+Epoch 5, Batch 20, Loss: 1.8786
+Epoch 5, Batch 40, Loss: 1.9330
+Epoch [5/100], Train Loss: 2.0386, Train Acc: 30.20%, Val Loss: 2.2157, Val Acc: 15.00%, Patience: 1/15
+Epoch 6, Batch 0, Loss: 2.2829
+Epoch 6, Batch 20, Loss: 2.2729
+Epoch 6, Batch 40, Loss: 1.8235
+Epoch [6/100], Train Loss: 1.9390, Train Acc: 36.20%, Val Loss: 2.2014, Val Acc: 19.17%, Patience: 0/15
+Epoch 7, Batch 0, Loss: 1.9060
+Epoch 7, Batch 20, Loss: 2.0857
+Epoch 7, Batch 40, Loss: 1.7676
+Epoch [7/100], Train Loss: 1.8782, Train Acc: 37.80%, Val Loss: 2.2478, Val Acc: 18.33%, Patience: 1/15
+Epoch 8, Batch 0, Loss: 1.3961
+Epoch 8, Batch 20, Loss: 1.8559
+Epoch 8, Batch 40, Loss: 1.5971
+  >>> New best model saved :) Val Acc: 26.67%
+Epoch [8/100], Train Loss: 1.7740, Train Acc: 43.20%, Val Loss: 2.1426, Val Acc: 26.67%, Patience: 0/15
+Epoch 9, Batch 0, Loss: 1.8865
+Epoch 9, Batch 20, Loss: 2.0097
+Epoch 9, Batch 40, Loss: 1.5661
+  >>> New best model saved :) Val Acc: 29.17%
+Epoch [9/100], Train Loss: 1.7146, Train Acc: 43.20%, Val Loss: 2.1476, Val Acc: 29.17%, Patience: 0/15
+Epoch 10, Batch 0, Loss: 1.6036
+Epoch 10, Batch 20, Loss: 1.9702
+Epoch 10, Batch 40, Loss: 1.7741
+  >>> New best model saved :) Val Acc: 30.00%
+Epoch [10/100], Train Loss: 1.6446, Train Acc: 46.40%, Val Loss: 2.1451, Val Acc: 30.00%, Patience: 0/15
+Epoch 11, Batch 0, Loss: 1.6212
+Epoch 11, Batch 20, Loss: 1.3832
+Epoch 11, Batch 40, Loss: 1.8605
+Epoch [11/100], Train Loss: 1.5306, Train Acc: 51.20%, Val Loss: 2.2521, Val Acc: 21.67%, Patience: 1/15
+Epoch 12, Batch 0, Loss: 1.4137
+Epoch 12, Batch 20, Loss: 1.2195
+Epoch 12, Batch 40, Loss: 1.5311
+  >>> New best model saved :) Val Acc: 35.00%
+Epoch [12/100], Train Loss: 1.4981, Train Acc: 53.20%, Val Loss: 2.2575, Val Acc: 35.00%, Patience: 0/15
+Epoch 13, Batch 0, Loss: 1.7088
+Epoch 13, Batch 20, Loss: 1.3684
+Epoch 13, Batch 40, Loss: 1.6211
+Epoch [13/100], Train Loss: 1.4421, Train Acc: 55.80%, Val Loss: 2.1511, Val Acc: 31.67%, Patience: 1/15
+Epoch 14, Batch 0, Loss: 1.2011
+Epoch 14, Batch 20, Loss: 1.1628
+Epoch 14, Batch 40, Loss: 1.2577
+Epoch [14/100], Train Loss: 1.3270, Train Acc: 58.40%, Val Loss: 2.1835, Val Acc: 32.50%, Patience: 2/15
+Epoch 15, Batch 0, Loss: 0.9782
+Epoch 15, Batch 20, Loss: 1.5546
+Epoch 15, Batch 40, Loss: 1.7939
+Epoch [15/100], Train Loss: 1.3387, Train Acc: 60.20%, Val Loss: 2.2658, Val Acc: 27.50%, Patience: 3/15
+Epoch 16, Batch 0, Loss: 0.8871
+Epoch 16, Batch 20, Loss: 1.0345
+Epoch 16, Batch 40, Loss: 1.2502
+Epoch [16/100], Train Loss: 1.2018, Train Acc: 64.40%, Val Loss: 2.2722, Val Acc: 25.83%, Patience: 4/15
+Epoch 17, Batch 0, Loss: 0.9912
+Epoch 17, Batch 20, Loss: 0.9873
+Epoch 17, Batch 40, Loss: 1.2551
+Epoch [17/100], Train Loss: 1.1810, Train Acc: 65.60%, Val Loss: 2.1852, Val Acc: 30.83%, Patience: 5/15
+Epoch 18, Batch 0, Loss: 1.1108
+Epoch 18, Batch 20, Loss: 1.0278
+Epoch 18, Batch 40, Loss: 0.8644
+Epoch [18/100], Train Loss: 1.0894, Train Acc: 69.20%, Val Loss: 2.3048, Val Acc: 25.00%, Patience: 6/15
+Epoch 19, Batch 0, Loss: 0.5713
+Epoch 19, Batch 20, Loss: 0.9130
+Epoch 19, Batch 40, Loss: 1.0601
+Epoch [19/100], Train Loss: 1.0266, Train Acc: 72.40%, Val Loss: 2.5202, Val Acc: 30.00%, Patience: 7/15
+Epoch 20, Batch 0, Loss: 0.5598
+Epoch 20, Batch 20, Loss: 0.9485
+Epoch 20, Batch 40, Loss: 1.3565
+Epoch [20/100], Train Loss: 1.0277, Train Acc: 69.60%, Val Loss: 2.4245, Val Acc: 24.17%, Patience: 8/15
+Epoch 21, Batch 0, Loss: 1.2293
+Epoch 21, Batch 20, Loss: 0.7664
+Epoch 21, Batch 40, Loss: 0.6574
+Epoch [21/100], Train Loss: 1.0013, Train Acc: 69.20%, Val Loss: 2.5222, Val Acc: 21.67%, Patience: 9/15
+Epoch 22, Batch 0, Loss: 1.0354
+Epoch 22, Batch 20, Loss: 1.0549
+Epoch 22, Batch 40, Loss: 0.8241
+Epoch [22/100], Train Loss: 0.9446, Train Acc: 71.60%, Val Loss: 2.8819, Val Acc: 28.33%, Patience: 10/15
+Epoch 23, Batch 0, Loss: 0.6970
+Epoch 23, Batch 20, Loss: 0.7506
+Epoch 23, Batch 40, Loss: 0.6430
+Epoch [23/100], Train Loss: 0.8201, Train Acc: 76.80%, Val Loss: 2.5046, Val Acc: 30.83%, Patience: 11/15
+Epoch 24, Batch 0, Loss: 0.5906
+Epoch 24, Batch 20, Loss: 1.0136
+Epoch 24, Batch 40, Loss: 0.6740
+Epoch [24/100], Train Loss: 0.8425, Train Acc: 75.80%, Val Loss: 2.6388, Val Acc: 24.17%, Patience: 12/15
+Epoch 25, Batch 0, Loss: 0.7687
+Epoch 25, Batch 20, Loss: 0.6813
+Epoch 25, Batch 40, Loss: 0.6522
+Epoch [25/100], Train Loss: 0.8132, Train Acc: 76.00%, Val Loss: 2.5453, Val Acc: 28.33%, Patience: 13/15
+Epoch 26, Batch 0, Loss: 0.7971
+Epoch 26, Batch 20, Loss: 1.0704
+Epoch 26, Batch 40, Loss: 0.3027
+Epoch [26/100], Train Loss: 0.7965, Train Acc: 77.20%, Val Loss: 3.6230, Val Acc: 20.00%, Patience: 14/15
+Epoch 27, Batch 0, Loss: 0.6970
+Epoch 27, Batch 20, Loss: 1.1734
+Epoch 27, Batch 40, Loss: 0.9354
+Epoch [27/100], Train Loss: 0.7078, Train Acc: 79.60%, Val Loss: 2.7741, Val Acc: 23.33%, Patience: 15/15
+
+Early stopping triggered at epoch 27
+Best validation accuracy: 35.00%
+Training completed!
+Best validation accuracy: 35.00%
+
+============================================================
+EVALUATING ON TEST SET
+============================================================
+Batch 0/12, Running Accuracy: 10.00%
+Batch 10/12, Running Accuracy: 26.36%
+
+Final Test Accuracy: 26.67%
+
+============================================================
+DETAILED CLASSIFICATION REPORT
+============================================================
+                   precision    recall  f1-score   support
+
+ BodyWeightSquats     0.0833    0.0833    0.0833        12
+ HandstandPushups     0.6250    0.4167    0.5000        12
+ HandstandWalking     0.1667    0.1667    0.1667        12
+         JumpRope     0.0000    0.0000    0.0000        12
+      JumpingJack     0.4167    0.4167    0.4167        12
+           Lunges     0.1852    0.4167    0.2564        12
+          PullUps     0.3333    0.2500    0.2857        12
+          PushUps     0.1875    0.2500    0.2143        12
+TrampolineJumping     0.2143    0.2500    0.2308        12
+      WallPushups     0.7143    0.4167    0.5263        12
+
+         accuracy                         0.2667       120
+        macro avg     0.2926    0.2667    0.2680       120
+     weighted avg     0.2926    0.2667    0.2680       120
+
+
+Model saved as final_model.pth
+Results saved as experiment_results.json
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@hpc.dtu.dk>
+Subject: Job 26607266: <single_frame_cnn> in cluster <dcc> Done
+
+Job <single_frame_cnn> was submitted from host <hpclogin1> by user <s214397> in cluster <dcc> at Thu Oct 23 10:33:03 2025
+Job was executed on host(s) <4*n-62-18-13>, in queue <c02516>, as user <s214397> in cluster <dcc> at Thu Oct 23 10:33:04 2025
+</zhome/86/c/167853> was used as the home directory.
+</zhome/86/c/167853/02516-video-classification> was used as the working directory.
+Started at Thu Oct 23 10:33:04 2025
+Terminated at Thu Oct 23 10:38:25 2025
+Results reported at Thu Oct 23 10:38:25 2025
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#!/bin/sh
+### ------------- specify queue name ----------------
+#BSUB -q c02516
+### ------------- specify gpu request----------------
+#BSUB -gpu "num=1:mode=exclusive_process"
+### ------------- specify job name ----------------
+#BSUB -J single_frame_cnn
+### ------------- specify number of cores ----------------
+#BSUB -n 4
+#BSUB -R "span[hosts=1]"
+
+#BSUB -R "rusage[mem=20GB]"
+
+### ------------- specify wall-clock time (max allowed is 12:00)---------------- 
+#BSUB -W 08:00
+
+#BSUB -o OUTPUT_FILE%J.out
+#BSUB -e OUTPUT_FILE%J.err
+
+source venv_proj2/bin/activate
+python 3D_CNN.py
+
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   289.18 sec.
+    Max Memory :                                 1042 MB
+    Average Memory :                             832.60 MB
+    Total Requested Memory :                     81920.00 MB
+    Delta Memory :                               80878.00 MB
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                8
+    Run time :                                   399 sec.
+    Turnaround time :                            322 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file <OUTPUT_FILE26607266.err> for stderr output of this job.
+
