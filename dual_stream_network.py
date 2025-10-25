@@ -12,21 +12,23 @@ utils.set_seed(261025)
 # global settings
 root_dir = '/dtu/datasets1/02516/ucf101_noleakage'
 img_size = 412
-batch_size = 10
+img_size_resize = 256
+img_size_crop = 224
+batch_size = 8
 
 # optimizer settings
-window_size = 2
-lr = 5e-6
+lr = 1e-2
 weight_decay = 1e-4
-factor = 0.3
-patience = 5
-dropout_rate = 0.5
-n_epochs = 500 
-opt_settings = {"window_size": window_size,
-                "lr": lr, 
+factor = 0.5
+patience_train = 30
+patience_scheduler = 3
+dropout_rate = 0.9
+n_epochs = 100
+opt_settings = {"lr": lr, 
                 "weight_decay": weight_decay, 
                 "factor": factor, 
-                "patience": patience, 
+                "patience_train": patience_train, 
+                "patience_scheduler": patience_scheduler,
                 "dropout_rate": dropout_rate,
                 "n_epochs": n_epochs}
 
@@ -35,34 +37,37 @@ for param, val in opt_settings.items():
     print(f"{param}: {val}")
 
 # transformations
-transform = T.Compose([T.Resize((img_size, img_size)),T.ToTensor()])
-# transform = T.Compose([
-#     T.Resize((img_size, img_size)),
-#     T.RandomHorizontalFlip(p=0.5),
-#     # T.ColorJitter(brightness=0.2, contrast=0.2),
-#     T.ToTensor(),
-#     T.Normalize(mean=[0.485, 0.456, 0.406],
-#                 std=[0.229, 0.224, 0.225])
-# ])
-# consider removing ColorJitter
+# transform = T.Compose([T.Resize((img_size, img_size)),T.ToTensor()])
+transform_frame = T.Compose([
+    T.Resize(img_size_resize),
+    T.RandomCrop(img_size_crop),
+    T.RandomHorizontalFlip(),
+    T.ColorJitter(brightness=0.2, contrast=0.2, saturation=0.2, hue=0.02),
+    T.ToTensor(),
+])
+
+transform_flow = T.Compose([
+    T.RandomCrop(img_size_crop),
+    T.ToTensor(),
+])
 
 # loading the train set
-train_frames = FrameImageDataset(root_dir=root_dir, split='train', transform=transform)
-train_flows = OpticalFlowDataset(root_dir=root_dir, split='train', transform=transform)
-train_dual_stream = DualStreamDataset(frame_dataset=train_frames, flow_dataset=train_flows, window_size=window_size)
-train_loader = DataLoader(train_dual_stream,  batch_size=batch_size, shuffle=False)
+train_frames = FrameImageDataset(root_dir=root_dir, split='train', transform=transform_frame)
+train_flows = OpticalFlowDataset(root_dir=root_dir, split='train', transform=transform_flow)
+train_dual_stream = DualStreamDataset(frame_dataset=train_frames, flow_dataset=train_flows)
+train_loader = DataLoader(train_dual_stream,  batch_size=batch_size, shuffle=True)
 
 # loading the validation test
-val_frames = FrameImageDataset(root_dir=root_dir, split='val', transform=transform)
-val_flows = OpticalFlowDataset(root_dir=root_dir, split='val', transform=transform)
-val_dual_stream = DualStreamDataset(frame_dataset=val_frames, flow_dataset=val_flows, window_size=window_size)
-val_loader = DataLoader(val_dual_stream,  batch_size=batch_size, shuffle=False)
+val_frames = FrameImageDataset(root_dir=root_dir, split='val', transform=transform_frame)
+val_flows = OpticalFlowDataset(root_dir=root_dir, split='val', transform=transform_flow)
+val_dual_stream = DualStreamDataset(frame_dataset=val_frames, flow_dataset=val_flows)
+val_loader = DataLoader(val_dual_stream,  batch_size=batch_size, shuffle=True)
 
 # loading the test set
-test_frames = FrameImageDataset(root_dir=root_dir, split='test', transform=transform)
-test_flows = OpticalFlowDataset(root_dir=root_dir, split='test', transform=transform)
-test_dual_stream = DualStreamDataset(frame_dataset=test_frames, flow_dataset=test_flows, window_size=window_size)
-test_loader = DataLoader(test_dual_stream,  batch_size=batch_size, shuffle=False)
+test_frames = FrameImageDataset(root_dir=root_dir, split='test', transform=transform_frame)
+test_flows = OpticalFlowDataset(root_dir=root_dir, split='test', transform=transform_flow)
+test_dual_stream = DualStreamDataset(frame_dataset=test_frames, flow_dataset=test_flows)
+test_loader = DataLoader(test_dual_stream,  batch_size=batch_size, shuffle=True)
 
 # dual-stream network
 class DualStreamNetwork(nn.Module):
@@ -78,8 +83,8 @@ class DualStreamNetwork(nn.Module):
         )
 
         self.conv_flow = nn.Sequential(
-            # conv1 for frame data
-            nn.Conv2d(window_size*2*3, 96, kernel_size=7, stride=2, padding=1),
+            # conv1 for flow data
+            nn.Conv2d(9*3, 96, kernel_size=7, stride=2, padding=1),   # there should be (batch_size - 1 flow images)
             nn.ReLU(inplace=True),
             nn.LocalResponseNorm(size=5),
             nn.MaxPool2d(kernel_size=2, stride=2),
@@ -108,7 +113,8 @@ class DualStreamNetwork(nn.Module):
         
         self.fc = nn.Sequential(
             # full6
-            nn.Linear(512*12*12, 4096),
+            # nn.Linear(512*12*12, 4096),
+            nn.Linear(512*6*6, 4096),
             nn.ReLU(inplace=True),
             nn.Dropout(p=dropout_rate),
 
@@ -117,8 +123,9 @@ class DualStreamNetwork(nn.Module):
             nn.ReLU(inplace=True),
             nn.Dropout(p=dropout_rate),
 
-            # final output (10 classes)
-            nn.Linear(2048, num_classes)
+            # final output (softmax)
+            nn.Linear(2048, num_classes),
+            nn.LogSoftmax(dim=1)
             )
 
     def forward_conv(self, x, conv_type='frame'):
@@ -147,11 +154,12 @@ model = DualStreamNetwork()
 model.to(device)
 
 # initializing Adam optimizer
-optimizer = torch.optim.Adam(model.parameters(), lr=lr, weight_decay=weight_decay)
+optimizer = torch.optim.Adam(model.parameters(), lr=lr)
+# optimizer = torch.optim.SGD(params=model.parameters(), lr=lr, momentum=0.9)
 
 # initializing learning rate scheduler
 scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(
-    optimizer, mode='min', factor=factor, patience=patience
+    optimizer, mode='min', factor=factor, patience=patience_scheduler
 )
 
 # training the single frame CNN
@@ -161,7 +169,8 @@ out_dict = utils.train_dual_stream(model=model,
                                    device=device, 
                                    optimizer=optimizer, 
                                    scheduler=scheduler, 
-                                   num_epochs=n_epochs)
+                                   num_epochs=n_epochs,
+                                   patience=patience_train)
 print(f"Evaluation metrics from training phase: {out_dict}")
 
 # loading the saved model
