@@ -3,7 +3,7 @@ import torch.nn as nn
 from torch.utils.data import DataLoader
 from torchvision import transforms as T
 
-from datasets import FrameImageDataset
+from datasets import FrameImageDatasetSF
 import utils
 
 # setting seed
@@ -11,18 +11,20 @@ utils.set_seed(261025)
 
 # size settings
 img_size = 128
-batch_size = 10
+batch_size = 8
 
 # optimizer settings
-lr = 5e-6
-weight_decay = 1e-4
+lr = 1e-4
+weight_decay = 1e-5
 factor = 0.3
-patience = 5
+patience_train = 30
+patience_scheduler = 5
 n_epochs = 500
 opt_settings = {"lr": lr, 
                 "weight_decay": weight_decay, 
                 "factor": factor, 
-                "patience": patience, 
+                "patience_train": patience_train, 
+                "patience_scheduler": patience_scheduler,
                 "n_epochs": n_epochs}
 
 # printing the training/optimizer settings
@@ -30,28 +32,19 @@ for param, val in opt_settings.items():
     print(f"{param}: {val}")
 
 # transformations
-# transform = T.Compose([T.Resize((img_size, img_size)),T.ToTensor()])
-transform = T.Compose([
-    T.Resize((img_size, img_size)),
-    T.RandomHorizontalFlip(p=0.5),
-    # T.ColorJitter(brightness=0.2, contrast=0.2),
-    T.ToTensor(),
-    T.Normalize(mean=[0.485, 0.456, 0.406],
-                std=[0.229, 0.224, 0.225])
-])
-# consider removing ColorJitter
+transform = T.Compose([T.Resize((img_size, img_size)),T.ToTensor()])
 
 # loading the train set
-trainset = FrameImageDataset(split='train', transform=transform)
-train_loader = DataLoader(trainset,  batch_size=batch_size, shuffle=False)
+trainset = FrameImageDatasetSF(split='train', transform=transform)
+train_loader = DataLoader(trainset,  batch_size=batch_size, shuffle=True)
 
 # loading the validation test
-valset = FrameImageDataset(split='val', transform=transform)
-val_loader = DataLoader(valset,  batch_size=batch_size, shuffle=False)
+valset = FrameImageDatasetSF(split='val', transform=transform)
+val_loader = DataLoader(valset,  batch_size=batch_size, shuffle=True)
 
 # loading the test set
-testset = FrameImageDataset(split='test', transform=transform)
-test_loader = DataLoader(testset,  batch_size=batch_size, shuffle=False)
+testset = FrameImageDatasetSF(split='test', transform=transform)
+test_loader = DataLoader(testset,  batch_size=batch_size, shuffle=True)
 
 # 2D CNN
 class Network(nn.Module):
@@ -96,7 +89,7 @@ optimizer = torch.optim.Adam(model.parameters(), lr=lr, weight_decay=weight_deca
 
 # initializing learning rate scheduler
 scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(
-    optimizer, mode='min', factor=factor, patience=patience
+    optimizer, mode='min', factor=factor, patience=patience_scheduler
 )
 
 # training the single frame CNN
@@ -106,7 +99,8 @@ out_dict = utils.train_single_frame(model=model,
                                     device=device, 
                                     optimizer=optimizer, 
                                     scheduler=scheduler, 
-                                    num_epochs=n_epochs)
+                                    num_epochs=n_epochs,
+                                    patience=patience_train)
 print(f"Evaluation metrics from training phase: {out_dict}")
 
 # loading the saved model
