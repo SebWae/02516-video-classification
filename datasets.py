@@ -36,6 +36,61 @@ class FrameImageDataset(torch.utils.data.Dataset):
             frame = T.ToTensor()(frame)
 
         return frame, label
+    
+
+class FrameImageDatasetSF(torch.utils.data.Dataset):
+    def __init__(self, 
+        root_dir='/dtu/datasets1/02516/ufc10/',
+        split='train', 
+        transform=None,
+        frames_per_video=10
+    ):
+        self.root_dir = root_dir
+        self.split = split
+        self.transform = transform
+        self.frames_per_video = frames_per_video
+
+        # grouping frames by video
+        frame_paths = sorted(glob(f'{root_dir}/frames/{split}/*/*/*.jpg'))
+        self.video_to_frames = {}
+        for path in frame_paths:
+            video_name = path.split('/')[-2]
+            if video_name not in self.video_to_frames:
+                self.video_to_frames[video_name] = []
+            self.video_to_frames[video_name].append(path)
+
+        # making sure each video has exactly the required number of frames
+        self.video_names = [v for v, frames in self.video_to_frames.items() if len(frames) >= frames_per_video]
+
+        self.df = pd.read_csv(f'{root_dir}/metadata/{split}.csv')
+
+    def __len__(self):
+        return len(self.video_names)
+
+    def _get_meta(self, attr, value):
+        return self.df.loc[self.df[attr] == value]
+
+    def __getitem__(self, idx):
+        video_name = self.video_names[idx]
+        frame_paths = sorted(self.video_to_frames[video_name])[:self.frames_per_video]  # take first 10 frames
+
+        # reading label
+        video_meta = self._get_meta('video_name', video_name)
+        label = video_meta['label'].item()
+
+        frames = []
+        for frame_path in frame_paths:
+            frame = Image.open(frame_path).convert("RGB")
+            if self.transform:
+                frame = self.transform(frame)
+            else:
+                frame = T.ToTensor()(frame)
+            frames.append(frame)
+
+        # stacking into tensor [10, 3, H, W]
+        frames_tensor = torch.stack(frames, dim=0)
+
+        return frames_tensor, label
 
 
 class FrameVideoDataset(torch.utils.data.Dataset):
