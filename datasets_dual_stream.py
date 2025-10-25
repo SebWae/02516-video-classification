@@ -3,121 +3,84 @@ import numpy as np
 import os
 import pandas as pd
 from PIL import Image
-import re
 import torch
 from torchvision import transforms as T
 
+
 class FrameImageDataset(torch.utils.data.Dataset):
     def __init__(self, root_dir, split='train', transform=None):
-        self.frame_paths = sorted(glob(f'{root_dir}/frames/{split}/*/*/*.jpg'))
         self.df = pd.read_csv(f'{root_dir}/metadata/{split}.csv')
-        self.split = split
         self.transform = transform
 
-    def __len__(self):
-        return len(self.frame_paths)
+        # Group frames by video
+        self.video_to_frames = {}
+        for frame_path in sorted(glob(f'{root_dir}/frames/{split}/*/*/*.jpg')):
+            video_name = frame_path.split('/')[-2]
+            self.video_to_frames.setdefault(video_name, []).append(frame_path)
 
-    def _get_meta(self, attr, value):
-        return self.df.loc[self.df[attr] == value]
+        # Unique videos only
+        self.videos = list(self.video_to_frames.keys())
+
+    def __len__(self):
+        return len(self.videos)
 
     def __getitem__(self, idx):
-        frame_path = self.frame_paths[idx]
-        video_name = frame_path.split('/')[-2]
-        
-        # Extract frame index (assuming format frame000123.jpg)
-        frame_number = int(os.path.basename(frame_path).split('.')[0].replace('frame_', ''))
-        
-        video_meta = self._get_meta('video_name', video_name)
-        label = video_meta['label'].item()
+        # Select video by index
+        video_name = self.videos[idx]
 
-        frame = Image.open(frame_path).convert("RGB")
-        if self.transform:
-            frame = self.transform(frame)
-        else:
-            frame = T.ToTensor()(frame)
+        # Choose ONE random frame from this video
+        frame_paths = self.video_to_frames[video_name]
+        frame_path = np.random.choice(frame_paths)
 
-        return frame, label, video_name, frame_number, frame_path
+        label = self.df.loc[self.df['video_name'] == video_name, 'label'].item()
 
+        frame = Image.open(frame_path).convert('RGB')
+        frame = self.transform(frame) if self.transform else T.ToTensor()(frame)
+
+        return frame, label, video_name
+    
 
 class OpticalFlowDataset(torch.utils.data.Dataset):
     def __init__(self, root_dir, split='train', transform=None):
-        self.flow_paths = sorted(glob(f'{root_dir}/flows_png/{split}/*/*/*.png'))
         self.df = pd.read_csv(f'{root_dir}/metadata/{split}.csv')
-        self.split = split
         self.transform = transform
 
-        # Build a dictionary for fast lookup
-        self.flow_dict = {}  # (video_name, i, j) -> flow_path
-        for path in self.flow_paths:
+        # grouping flows by video
+        self.video_to_flows = {}
+        for path in sorted(glob(f'{root_dir}/flows_png/{split}/*/*/*.png')):
             video_name = path.split('/')[-2]
-            basename = os.path.basename(path).split('.')[0]
-            i, j = map(int, re.findall(r'\d+', basename))
-            self.flow_dict[(video_name, i, j)] = path
+            self.video_to_flows.setdefault(video_name, []).append(path)
 
-    def __len__(self):
-        return len(self.flow_paths)
+        self.videos = list(self.video_to_flows.keys())
 
-    def _get_meta(self, attr, value):
-        return self.df.loc[self.df[attr] == value]
-
-    def __getitem__(self, idx):
-        flow_path = self.flow_paths[idx]
-        video_name = flow_path.split('/')[-2]
-        basename = os.path.basename(flow_path).split('.')[0]
-        i, j = map(int, re.findall(r'\d+', basename))
-
-        video_meta = self._get_meta('video_name', video_name)
-        label = video_meta['label'].item()
-
-        flow_img = Image.open(flow_path).convert("RGB")
-        if self.transform:
-            flow_img = self.transform(flow_img)
-        else:
-            flow_img = T.ToTensor()(flow_img)
-
-        return flow_img, label, video_name, (i, j), flow_path
-
-    def get_flow(self, video_name, i, j):
-        """Fast lookup of flow image path by video_name and frame indices."""
-        return self.flow_dict.get((video_name, i, j), None)
+    def get_entire_flow_stack(self, video_name):
+        flow_paths = self.video_to_flows[video_name]
+        flow_imgs = []
+        for flow_path in flow_paths:
+            flow_img = Image.open(flow_path).convert('RGB')
+            flow_img = self.transform(flow_img) if self.transform else T.ToTensor()(flow_img)
+            flow_imgs.append(flow_img)
+        return torch.stack(flow_imgs) if flow_imgs else None
 
 
 class DualStreamDataset(torch.utils.data.Dataset):
-    def __init__(self, frame_dataset, flow_dataset, window_size=2):
+    def __init__(self, frame_dataset, flow_dataset):
         self.frame_dataset = frame_dataset
         self.flow_dataset = flow_dataset
-        self.window_size = window_size
+        self.videos = frame_dataset.videos  # both datasets must share same video list
 
     def __len__(self):
-        return len(self.frame_dataset)
+        return len(self.videos)
 
     def __getitem__(self, idx):
-        frame, label, video_name, frame_number, _ = self.frame_dataset[idx]
+        # Get a random frame from this video
+        frame, label, video_name = self.frame_dataset[idx]
 
-        # Build flow pairs around the frame_number
-        flow_imgs = []
-        for i in range(frame_number - self.window_size + 1, frame_number + self.window_size):
-            j = i + 1
-            if i >= 1:  # Ensure valid indices (no zero or negative)
-                flow_path = self.flow_dataset.get_flow(video_name, i, j)
-                if flow_path:
-                    flow_img = Image.open(flow_path).convert("RGB")
-                    if self.flow_dataset.transform:
-                        flow_img = self.flow_dataset.transform(flow_img)
-                    else:
-                        flow_img = T.ToTensor()(flow_img)
-                    flow_imgs.append(flow_img)
+        # Get the entire flow stack for this video
+        flow_stack = self.flow_dataset.get_entire_flow_stack(video_name)
 
-        # Ensure consistent tensor shape even if some flows are missing
-        num_flows = self.window_size * 2
-        if len(flow_imgs) == 0:
-            # No flows available
-            flow_stack = torch.zeros((num_flows, 3, frame.shape[1], frame.shape[2]))
-        elif len(flow_imgs) < num_flows:
-            # Pad missing flows with zeros
-            padding = torch.zeros((num_flows - len(flow_imgs), 3, frame.shape[1], frame.shape[2]))
-            flow_stack = torch.cat([torch.stack(flow_imgs), padding], dim=0)
-        else:
-            flow_stack = torch.stack(flow_imgs)
+        # Optionally ensure tensor format
+        if flow_stack is None:
+            flow_stack = torch.zeros((0, 3, frame.shape[1], frame.shape[2]))
 
         return frame, flow_stack, label
