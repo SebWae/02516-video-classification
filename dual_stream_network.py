@@ -12,17 +12,15 @@ utils.set_seed(261025)
 # global settings
 root_dir = '/dtu/datasets1/02516/ucf101_noleakage'
 img_size = 412
-img_size_resize = 256
-img_size_crop = 224
 batch_size = 8
 
 # optimizer settings
-lr = 1e-2
+lr = 5e-6
 weight_decay = 1e-4
 factor = 0.5
-patience_train = 30
+patience_train = 20
 patience_scheduler = 3
-dropout_rate = 0.9
+dropout_rate = 0.5
 n_epochs = 100
 opt_settings = {"lr": lr, 
                 "weight_decay": weight_decay, 
@@ -37,35 +35,23 @@ for param, val in opt_settings.items():
     print(f"{param}: {val}")
 
 # transformations
-# transform = T.Compose([T.Resize((img_size, img_size)),T.ToTensor()])
-transform_frame = T.Compose([
-    T.Resize(img_size_resize),
-    T.RandomCrop(img_size_crop),
-    T.RandomHorizontalFlip(),
-    T.ColorJitter(brightness=0.2, contrast=0.2, saturation=0.2, hue=0.02),
-    T.ToTensor(),
-])
-
-transform_flow = T.Compose([
-    T.RandomCrop(img_size_crop),
-    T.ToTensor(),
-])
+transform = T.Compose([T.Resize((img_size, img_size)),T.ToTensor()])
 
 # loading the train set
-train_frames = FrameImageDataset(root_dir=root_dir, split='train', transform=transform_frame)
-train_flows = OpticalFlowDataset(root_dir=root_dir, split='train', transform=transform_flow)
+train_frames = FrameImageDataset(root_dir=root_dir, split='train', transform=transform)
+train_flows = OpticalFlowDataset(root_dir=root_dir, split='train', transform=transform)
 train_dual_stream = DualStreamDataset(frame_dataset=train_frames, flow_dataset=train_flows)
 train_loader = DataLoader(train_dual_stream,  batch_size=batch_size, shuffle=True)
 
 # loading the validation test
-val_frames = FrameImageDataset(root_dir=root_dir, split='val', transform=transform_frame)
-val_flows = OpticalFlowDataset(root_dir=root_dir, split='val', transform=transform_flow)
+val_frames = FrameImageDataset(root_dir=root_dir, split='val', transform=transform)
+val_flows = OpticalFlowDataset(root_dir=root_dir, split='val', transform=transform)
 val_dual_stream = DualStreamDataset(frame_dataset=val_frames, flow_dataset=val_flows)
 val_loader = DataLoader(val_dual_stream,  batch_size=batch_size, shuffle=True)
 
 # loading the test set
-test_frames = FrameImageDataset(root_dir=root_dir, split='test', transform=transform_frame)
-test_flows = OpticalFlowDataset(root_dir=root_dir, split='test', transform=transform_flow)
+test_frames = FrameImageDataset(root_dir=root_dir, split='test', transform=transform)
+test_flows = OpticalFlowDataset(root_dir=root_dir, split='test', transform=transform)
 test_dual_stream = DualStreamDataset(frame_dataset=test_frames, flow_dataset=test_flows)
 test_loader = DataLoader(test_dual_stream,  batch_size=batch_size, shuffle=True)
 
@@ -113,8 +99,7 @@ class DualStreamNetwork(nn.Module):
         
         self.fc = nn.Sequential(
             # full6
-            # nn.Linear(512*12*12, 4096),
-            nn.Linear(512*6*6, 4096),
+            nn.Linear(512*12*12, 4096),
             nn.ReLU(inplace=True),
             nn.Dropout(p=dropout_rate),
 
@@ -154,8 +139,7 @@ model = DualStreamNetwork()
 model.to(device)
 
 # initializing Adam optimizer
-optimizer = torch.optim.Adam(model.parameters(), lr=lr)
-# optimizer = torch.optim.SGD(params=model.parameters(), lr=lr, momentum=0.9)
+optimizer = torch.optim.Adam(model.parameters(), lr=lr, weight_decay=weight_decay)
 
 # initializing learning rate scheduler
 scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(
