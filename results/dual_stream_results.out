@@ -1,0 +1,117 @@
+lr: 5e-06
+weight_decay: 0.0001
+factor: 0.5
+patience_train: 20
+patience_scheduler: 3
+dropout_rate: 0.5
+n_epochs: 100
+The code will run on GPU.
+Loss train: 2.304	 val: 2.302	 Accuracy train: 9.8%	 val: 10.0%
+Validation loss improved from 10000000000.0000 to 2.3024. Saving model...
+Loss train: 2.302	 val: 2.302	 Accuracy train: 12.6%	 val: 15.8%
+Validation loss improved from 2.3024 to 2.3020. Saving model...
+Loss train: 2.302	 val: 2.301	 Accuracy train: 13.6%	 val: 16.7%
+Validation loss improved from 2.3020 to 2.3006. Saving model...
+Loss train: 2.297	 val: 2.294	 Accuracy train: 13.2%	 val: 8.3%
+Validation loss improved from 2.3006 to 2.2937. Saving model...
+Loss train: 2.281	 val: 2.260	 Accuracy train: 12.8%	 val: 23.3%
+Validation loss improved from 2.2937 to 2.2595. Saving model...
+Loss train: 2.206	 val: 2.175	 Accuracy train: 18.8%	 val: 18.3%
+Validation loss improved from 2.2595 to 2.1746. Saving model...
+Loss train: 2.130	 val: 2.148	 Accuracy train: 26.6%	 val: 24.2%
+Validation loss improved from 2.1746 to 2.1482. Saving model...
+Loss train: 2.083	 val: 2.125	 Accuracy train: 32.4%	 val: 19.2%
+Validation loss improved from 2.1482 to 2.1254. Saving model...
+Loss train: 2.010	 val: 2.133	 Accuracy train: 37.0%	 val: 32.5%
+Validation loss improved from 2.1254 to 2.1329. Saving model...
+Loss train: 1.986	 val: 2.123	 Accuracy train: 35.2%	 val: 24.2%
+Validation loss improved from 2.1329 to 2.1234. Saving model...
+Loss train: 1.926	 val: 2.110	 Accuracy train: 44.6%	 val: 33.3%
+Validation loss improved from 2.1234 to 2.1101. Saving model...
+Loss train: 1.860	 val: 2.134	 Accuracy train: 46.2%	 val: 29.2%
+Validation loss improved from 2.1101 to 2.1345. Saving model...
+Loss train: 1.812	 val: 2.104	 Accuracy train: 47.8%	 val: 30.8%
+Validation loss improved from 2.1345 to 2.1040. Saving model...
+Loss train: 1.741	 val: 2.138	 Accuracy train: 49.6%	 val: 36.7%
+Validation loss improved from 2.1040 to 2.1383. Saving model...
+Loss train: 1.700	 val: 2.175	 Accuracy train: 51.6%	 val: 30.0%
+Validation loss improved from 2.1383 to 2.1747. Saving model...
+Loss train: 1.616	 val: 2.221	 Accuracy train: 56.2%	 val: 34.2%
+Validation loss improved from 2.1747 to 2.2210. Saving model...
+Loss train: 1.601	 val: 2.175	 Accuracy train: 57.6%	 val: 33.3%
+Validation loss improved from 2.2210 to 2.1750. Saving model...
+Loss train: 1.493	 val: 2.212	 Accuracy train: 63.6%	 val: 36.7%
+Validation loss improved from 2.1750 to 2.2121. Saving model...
+Loss train: 1.455	 val: 2.257	 Accuracy train: 65.4%	 val: 35.0%
+Validation loss improved from 2.2121 to 2.2574. Saving model...
+Loss train: 1.435	 val: 2.220	 Accuracy train: 68.4%	 val: 33.3%
+Validation loss improved from 2.2574 to 2.2201. Saving model...
+Loss train: 1.365	 val: 2.253	 Accuracy train: 69.6%	 val: 36.7%
+Current validation loss (2.2525353749593098) is larger than for the previous epoch (2.220118029912313)!
+Early stopping applies!
+Evaluation metrics from training phase: {'train_acc': [0.098, 0.126, 0.136, 0.132, 0.128, 0.188, 0.266, 0.324, 0.37, 0.352, 0.446, 0.462, 0.478, 0.496, 0.516, 0.562, 0.576, 0.636, 0.654, 0.684, 0.696], 'val_acc': [0.1, 0.15833333333333333, 0.16666666666666666, 0.08333333333333333, 0.23333333333333334, 0.18333333333333332, 0.24166666666666667, 0.19166666666666668, 0.325, 0.24166666666666667, 0.3333333333333333, 0.2916666666666667, 0.30833333333333335, 0.36666666666666664, 0.3, 0.3416666666666667, 0.3333333333333333, 0.36666666666666664, 0.35, 0.3333333333333333, 0.36666666666666664], 'train_loss': [np.float64(2.303585760177128), np.float64(2.3024242983924017), np.float64(2.301513781623235), np.float64(2.2972767996409584), np.float64(2.2811308550456215), np.float64(2.2056812710232205), np.float64(2.1296894380024503), np.float64(2.082854704251365), np.float64(2.0100149786661543), np.float64(1.985700149384756), np.float64(1.9255302046972609), np.float64(1.8601933850182428), np.float64(1.8118228344690233), np.float64(1.740851496893262), np.float64(1.699973157473973), np.float64(1.6158576125190371), np.float64(1.601094126701355), np.float64(1.4927903205629378), np.float64(1.4549351060201252), np.float64(1.4347626860179599), np.float64(1.3650585223758032)], 'val_loss': [np.float64(2.302422555287679), np.float64(2.3020081361134848), np.float64(2.3006054878234865), np.float64(2.2936978340148926), np.float64(2.2595087051391602), np.float64(2.1745641946792604), np.float64(2.1482027928034464), np.float64(2.125421476364136), np.float64(2.1329326232274375), np.float64(2.123440893491109), np.float64(2.1101234197616576), np.float64(2.1344742218653363), np.float64(2.1040057579676312), np.float64(2.1383176326751707), np.float64(2.174720827738444), np.float64(2.220976948738098), np.float64(2.1750098625818888), np.float64(2.2121232032775877), np.float64(2.2573569933573405), np.float64(2.220118029912313), np.float64(2.2525353749593098)], 'n_epochs': 21}
+Evaluation metrics on the test set: {'Test loss': np.float64(2.095548415184021), 'Test accuracy': 0.43333333333333335}
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@hpc.dtu.dk>
+Subject: Job 26654998: <dsn> in cluster <dcc> Done
+
+Job <dsn> was submitted from host <hpclogin1> by user <s254120> in cluster <dcc> at Sun Oct 26 09:07:17 2025
+Job was executed on host(s) <4*n-62-18-13>, in queue <c02516>, as user <s254120> in cluster <dcc> at Sun Oct 26 09:07:18 2025
+</zhome/70/1/224436> was used as the home directory.
+</zhome/70/1/224436/02516-video-classification> was used as the working directory.
+Started at Sun Oct 26 09:07:18 2025
+Terminated at Sun Oct 26 09:25:51 2025
+Results reported at Sun Oct 26 09:25:51 2025
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#!/bin/sh
+### ------------- specify queue name ----------------
+#BSUB -q c02516
+### ------------- specify gpu request----------------
+#BSUB -gpu "num=1:mode=exclusive_process"
+### ------------- specify job name ----------------
+#BSUB -J dsn
+### ------------- specify number of cores ----------------
+#BSUB -n 4
+#BSUB -R "span[hosts=1]"
+
+#BSUB -R "rusage[mem=20GB]"
+
+### ------------- specify wall-clock time (max allowed is 12:00)---------------- 
+#BSUB -W 08:00
+
+#BSUB -o OUTPUT_FILE%J.out
+#BSUB -e OUTPUT_FILE%J.err
+
+source venv_proj2/bin/activate
+python dual_stream_network.py
+
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   868.26 sec.
+    Max Memory :                                 1244 MB
+    Average Memory :                             1164.09 MB
+    Total Requested Memory :                     81920.00 MB
+    Delta Memory :                               80676.00 MB
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                8
+    Run time :                                   1195 sec.
+    Turnaround time :                            1114 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file <OUTPUT_FILE26654998.err> for stderr output of this job.
+
