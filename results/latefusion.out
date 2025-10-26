@@ -1,0 +1,99 @@
+Loaded 500 samples from train set.
+Loaded 120 samples from val set.
+Epoch [1/30] Train Loss: 2.2897 | Train Acc: 0.128 | Val Loss: 2.2143 | Val Acc: 0.267
+Epoch [2/30] Train Loss: 2.2026 | Train Acc: 0.276 | Val Loss: 2.1160 | Val Acc: 0.425
+Epoch [3/30] Train Loss: 2.1370 | Train Acc: 0.380 | Val Loss: 2.0351 | Val Acc: 0.475
+Epoch [4/30] Train Loss: 2.0848 | Train Acc: 0.382 | Val Loss: 1.9565 | Val Acc: 0.525
+Epoch [5/30] Train Loss: 2.0094 | Train Acc: 0.486 | Val Loss: 1.8772 | Val Acc: 0.567
+Epoch [6/30] Train Loss: 1.9624 | Train Acc: 0.476 | Val Loss: 1.8092 | Val Acc: 0.617
+Epoch [7/30] Train Loss: 1.9190 | Train Acc: 0.522 | Val Loss: 1.7469 | Val Acc: 0.625
+Epoch [8/30] Train Loss: 1.8631 | Train Acc: 0.556 | Val Loss: 1.6977 | Val Acc: 0.675
+Epoch [9/30] Train Loss: 1.8223 | Train Acc: 0.604 | Val Loss: 1.6553 | Val Acc: 0.692
+Epoch [10/30] Train Loss: 1.7780 | Train Acc: 0.590 | Val Loss: 1.5894 | Val Acc: 0.683
+Epoch [11/30] Train Loss: 1.7334 | Train Acc: 0.590 | Val Loss: 1.5540 | Val Acc: 0.667
+Epoch [12/30] Train Loss: 1.7293 | Train Acc: 0.596 | Val Loss: 1.4978 | Val Acc: 0.692
+Epoch [13/30] Train Loss: 1.6844 | Train Acc: 0.624 | Val Loss: 1.4607 | Val Acc: 0.700
+Epoch [14/30] Train Loss: 1.6326 | Train Acc: 0.654 | Val Loss: 1.4224 | Val Acc: 0.700
+Epoch [15/30] Train Loss: 1.5944 | Train Acc: 0.646 | Val Loss: 1.3754 | Val Acc: 0.717
+Epoch [16/30] Train Loss: 1.5919 | Train Acc: 0.634 | Val Loss: 1.3375 | Val Acc: 0.717
+Epoch [17/30] Train Loss: 1.5334 | Train Acc: 0.656 | Val Loss: 1.3165 | Val Acc: 0.700
+Epoch [18/30] Train Loss: 1.5653 | Train Acc: 0.628 | Val Loss: 1.2951 | Val Acc: 0.750
+Epoch [19/30] Train Loss: 1.5203 | Train Acc: 0.650 | Val Loss: 1.2735 | Val Acc: 0.717
+Epoch [20/30] Train Loss: 1.4654 | Train Acc: 0.668 | Val Loss: 1.2681 | Val Acc: 0.708
+Epoch [21/30] Train Loss: 1.4530 | Train Acc: 0.676 | Val Loss: 1.2020 | Val Acc: 0.733
+Epoch [22/30] Train Loss: 1.4331 | Train Acc: 0.678 | Val Loss: 1.1785 | Val Acc: 0.758
+Epoch [23/30] Train Loss: 1.4032 | Train Acc: 0.682 | Val Loss: 1.1846 | Val Acc: 0.750
+Epoch [24/30] Train Loss: 1.3566 | Train Acc: 0.704 | Val Loss: 1.1346 | Val Acc: 0.750
+Epoch [25/30] Train Loss: 1.3896 | Train Acc: 0.686 | Val Loss: 1.1296 | Val Acc: 0.733
+Epoch [26/30] Train Loss: 1.3190 | Train Acc: 0.714 | Val Loss: 1.1070 | Val Acc: 0.725
+Epoch [27/30] Train Loss: 1.3062 | Train Acc: 0.692 | Val Loss: 1.0627 | Val Acc: 0.767
+Epoch [28/30] Train Loss: 1.2963 | Train Acc: 0.720 | Val Loss: 1.0657 | Val Acc: 0.717
+Epoch [29/30] Train Loss: 1.2916 | Train Acc: 0.712 | Val Loss: 1.0477 | Val Acc: 0.758
+Epoch [30/30] Train Loss: 1.2941 | Train Acc: 0.696 | Val Loss: 1.0266 | Val Acc: 0.742
+✅ Model saved as late_fusion_weak_model.pth
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@hpc.dtu.dk>
+Subject: Job 26656158: <testjob> in cluster <dcc> Done
+
+Job <testjob> was submitted from host <hpclogin1> by user <s252731> in cluster <dcc> at Sun Oct 26 11:44:49 2025
+Job was executed on host(s) <4*n-62-18-13>, in queue <c02516>, as user <s252731> in cluster <dcc> at Sun Oct 26 11:45:15 2025
+</zhome/1b/0/222796> was used as the home directory.
+</zhome/1b/0/222796/02516-video-classification> was used as the working directory.
+Started at Sun Oct 26 11:45:15 2025
+Terminated at Sun Oct 26 11:49:49 2025
+Results reported at Sun Oct 26 11:49:49 2025
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#!/bin/sh
+### ------------- specify queue name ----------------
+#BSUB -q c02516
+### ------------- specify gpu request----------------
+#BSUB -gpu "num=1:mode=exclusive_process"
+### ------------- specify job name ----------------
+#BSUB -J testjob
+### ------------- specify number of cores ----------------
+#BSUB -n 4
+#BSUB -R "span[hosts=1]"
+
+#BSUB -R "rusage[mem=20GB]"
+
+### ------------- specify wall-clock time (max allowed is 12:00)---------------- 
+#BSUB -W 00:10
+# Create folder
+mkdir -p result
+
+#BSUB -o result/OUTPUT_FILE%J.out
+#BSUB -e result/OUTPUT_FILE%J.err
+
+source venv_proj2/bin/activate
+python latef.py
+
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   544.58 sec.
+    Max Memory :                                 985 MB
+    Average Memory :                             745.25 MB
+    Total Requested Memory :                     81920.00 MB
+    Delta Memory :                               80935.00 MB
+    Max Swap :                                   -
+    Max Processes :                              8
+    Max Threads :                                24
+    Run time :                                   290 sec.
+    Turnaround time :                            300 sec.
+
+The output (if any) is above this job summary.
+
+
+
+PS:
+
+Read file <result/OUTPUT_FILE26656158.err> for stderr output of this job.
+
